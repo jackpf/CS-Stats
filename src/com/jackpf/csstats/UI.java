@@ -5,13 +5,14 @@ import java.io.InputStream;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.jackpf.csstats.Steam.SteamStats;
@@ -67,9 +68,29 @@ public class UI
  
         tabHost.setCurrentTab(0);
         
-        LinearLayout fragmentSummary = (LinearLayout) context.findViewById(R.id.fragment_summary);
+        TableLayout fragmentSummary = (TableLayout) context.findViewById(R.id.fragment_summary);
         
-        
+        String[] summaryStats = {"rounds", "wins", "winpct"};
+        for (int i = 0; i < summaryStats.length; i++) {
+        	String stat = summaryStats[i];
+        	
+        	TextView tvKey = new TextView(context);
+        	tvKey.setText(stat);
+        	
+        	TextView tvValue = new TextView(context);
+        	tvValue.setText(stats.get("stats.summary." + stat));
+        	
+        	TableRow tr = new TableRow(context);
+        	tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        	if (i % 2 == 1)
+        		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
+        	else
+        		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
+        	tr.addView(tvKey);
+        	tr.addView(tvValue);
+        	
+        	fragmentSummary.addView(tr);
+        }
 	}
 	
 	public void error(Exception e)
