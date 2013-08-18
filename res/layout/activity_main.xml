@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,23 +6,75 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/header_border">
         
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="184sp"
-            android:layout_height="184sp" />
+            android:layout_width="92sp"
+            android:layout_height="92sp"
+            android:background="@drawable/image_border" />
         
         <TextView
             android:id="@+id/steamId"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingLeft="5sp" />
         
     </LinearLayout>
+    
+    <TabHost
+	    android:id="@+id/tabhost"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:visibility="invisible">
+	     
+	    <LinearLayout
+	        android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:padding="5dp">
+	         
+	        <TabWidget
+	            android:id="@android:id/tabs"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content" />
+	         
+	        <FrameLayout
+	            android:id="@android:id/tabcontent"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:padding="5dp">
+	            
+	            <LinearLayout
+					android:id="@+id/fragment_summary"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical" />
+	            
+	            <TextView
+					android:id="@+id/fragment_last_game"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Last game" />
+	            
+	            <TextView
+					android:id="@+id/fragment_lifetime"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Lifetime" />
+	            
+	        </FrameLayout>
+	         
+	    </LinearLayout>
+	     
+	</TabHost>
 
-</RelativeLayout>
+</LinearLayout>

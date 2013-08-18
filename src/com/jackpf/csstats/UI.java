@@ -6,8 +6,12 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.jackpf.csstats.Steam.SteamStats;
@@ -39,7 +43,33 @@ public class UI
 		);
 		
 		// Set username
-		((TextView) context.findViewById(R.id.steamId)).setText(profile.get("steamId"));
+		((TextView) context.findViewById(R.id.steamId)).setText(profile.get("steamID"));
+		
+		TabHost tabHost = (TabHost) context.findViewById(R.id.tabhost);
+		tabHost.setup();
+		tabHost.setVisibility(LinearLayout.VISIBLE);
+
+        tabHost.addTab(
+    		tabHost.newTabSpec("Summary")
+	            .setIndicator("Summary")
+	            .setContent(R.id.fragment_summary)
+        );
+        tabHost.addTab(
+    		tabHost.newTabSpec("Last Game")
+	            .setIndicator("Last Game")
+	            .setContent(R.id.fragment_last_game)
+        );
+        tabHost.addTab(
+    		tabHost.newTabSpec("Lifetime")
+	            .setIndicator("Overview")
+	            .setContent(R.id.fragment_lifetime)
+        );
+ 
+        tabHost.setCurrentTab(0);
+        
+        LinearLayout fragmentSummary = (LinearLayout) context.findViewById(R.id.fragment_summary);
+        
+        
 	}
 	
 	public void error(Exception e)
