@@ -14,9 +14,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Steam Stats Parser
+ * Xml Parser
  */
-public class SteamStatsParser
+public class XmlParser
 {
 	/**
 	 * Xml stream
@@ -28,7 +28,7 @@ public class SteamStatsParser
      * 
      * @param is
      */
-    public SteamStatsParser(InputStream is)
+    public XmlParser(InputStream is)
     {
         this.is = is;
     }

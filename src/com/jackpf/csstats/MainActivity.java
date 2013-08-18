@@ -6,7 +6,7 @@ import android.view.Menu;
 
 public class MainActivity extends Activity
 {
-	private MainActivity instance;
+	private static MainActivity instance;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,7 +27,7 @@ public class MainActivity extends Activity
         return true;
     }
     
-    public MainActivity getInstance()
+    public static MainActivity getInstance()
     {
     	return instance;
     }

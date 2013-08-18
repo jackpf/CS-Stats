@@ -9,14 +9,18 @@ public class NetworkThread extends AsyncTask<String, Void, Void>
 {
     protected Void doInBackground(String... params)
     {
-        SteamStats stats = new SteamStats(new SteamUser("jcak"), SteamStats.CSSTATS_URL);
+    	SteamUser user = new SteamUser("jcak");
+    	
+        UI ui = new UI();
+        
         try {
-            stats.getStats();
-            
-            UI ui = new UI();
-            ui.update(stats);
+        	SteamStats profile = user.getProfile(), stats = user.getStats();
+        	
+            ui.update(profile, stats);
         } catch(Exception e) {
             System.err.println(e.getMessage());
+            
+            ui.error(e);
         }
 
         return null;

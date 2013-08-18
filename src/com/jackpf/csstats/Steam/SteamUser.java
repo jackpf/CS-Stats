@@ -64,4 +64,32 @@ public class SteamUser
     {
         return profileId;
     }
+    
+    /**
+     * Shorthand to get profile stats for user
+     * 
+     * @return SteamStats
+     */
+    public SteamStats getProfile() throws Exception
+    {
+        SteamStats stats = new SteamStats(this, SteamStats.PROFILE_URL);
+        
+        stats.getStats();
+        
+        return stats;
+    }
+    
+    /**
+     * Shorthand to get stats for user
+     * 
+     * @return SteamStats
+     */
+    public SteamStats getStats() throws Exception
+    {
+        SteamStats stats = new SteamStats(this, SteamStats.CSSTATS_URL);
+        
+        stats.getStats();
+        
+        return stats;
+    }
 }

@@ -1,6 +1,7 @@
 package com.jackpf.csstats.Steam;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -20,8 +21,14 @@ public class SteamStats
     /**
      * URL of counter strike stats xml file
      */
+	public final static String PROFILE_URL = "http://steamcommunity.com/id/{id}?xml=1";
     public final static String CSSTATS_URL = "http://steamcommunity.com/id/{id}/stats/CS:S?xml=1";
 
+    /**
+     * Some useful constants
+     */
+    public final static int VIEWABLE = 3;
+    
     /**
      * Steam User
      */
@@ -35,7 +42,7 @@ public class SteamStats
     /**
      * Parser
      */
-    private SteamStatsParser parser;
+    private XmlParser parser;
     
     /**
      * Parsed xml root
@@ -71,7 +78,7 @@ public class SteamStats
             throw new IOException(String.format("Server returned status code: %d", responseCode));
         }
 
-        parser = new SteamStatsParser(response.getEntity().getContent());
+        parser = new XmlParser(response.getEntity().getContent());
         xml = parser.parse();
     }
     
@@ -96,6 +103,6 @@ public class SteamStats
      */
     private String replaceVar(String string, String name, String value)
     {
-        return string.replaceAll("\\{" + name + "\\}", value);
+        return string.replaceAll("\\{" + name + "\\}", URLEncoder.encode(value));
     }
 }
