@@ -1,6 +1,10 @@
 package com.jackpf.csstats;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.achartengine.GraphicalView;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -10,11 +14,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.jackpf.csstats.Steam.Data;
 import com.jackpf.csstats.Steam.SteamStats;
 
 public class UI
@@ -91,6 +97,16 @@ public class UI
         	
         	fragmentSummary.addView(tr);
         }
+        
+        HashMap<String, Integer> mapData = new HashMap<String, Integer>();
+        
+        for (String map : Data.MAPS) {
+        	mapData.put(map, Integer.valueOf(stats.get("stats.maps." + map + "_rounds")));
+        }
+        
+        RelativeLayout chartContainer = (RelativeLayout) context.findViewById(R.id.fragment_lifetime);
+        GraphicalView chartView = UIGraph.getNewInstance(context, mapData);
+        chartContainer.addView(chartView);
 	}
 	
 	public void error(Exception e)
@@ -127,4 +143,6 @@ public class UI
 	        bmImage.setImageBitmap(result);
 	    }
 	}
+	
+	
 }
