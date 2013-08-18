@@ -2,11 +2,13 @@ package com.jackpf.csstats;
 
 import java.io.InputStream;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jackpf.csstats.Steam.SteamStats;
 
@@ -20,14 +22,24 @@ public class UI
 	 */
 	public void update(SteamStats profile, SteamStats stats)
 	{
+		Activity context = MainActivity.getInstance();
+		
 		if (Integer.parseInt(stats.get("visibilityState")) != SteamStats.VIEWABLE) {
 			Lib.error(
-				MainActivity.getInstance(),
-				MainActivity.getInstance().getString(R.string.error_not_viewable)
+				context,
+				context.getString(R.string.error_not_viewable)
 			);
 		}
 		
+		// Set avatar
+		new ImageLoader(
+			(ImageView) context.findViewById(R.id.avatar)
+		).execute(
+			profile.get("avatarFull")
+		);
 		
+		// Set username
+		((TextView) context.findViewById(R.id.steamId)).setText(profile.get("steamId"));
 	}
 	
 	public void error(Exception e)

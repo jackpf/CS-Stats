@@ -7,22 +7,34 @@ import android.os.AsyncTask;
 
 public class NetworkThread extends AsyncTask<String, Void, Void>
 {
+	SteamStats profile, stats;
+	
+	Exception e = null;
+	
+	@Override
     protected Void doInBackground(String... params)
     {
     	SteamUser user = new SteamUser("jcak");
     	
-        UI ui = new UI();
-        
         try {
-        	SteamStats profile = user.getProfile(), stats = user.getStats();
-        	
-            ui.update(profile, stats);
+        	profile = user.getProfile();
+        	stats = user.getStats();
         } catch(Exception e) {
-            System.err.println(e.getMessage());
-            
-            ui.error(e);
+            this.e = e;
         }
 
         return null;
     }
+    
+	@Override
+    protected void onPostExecute(Void _void)
+	{
+		UI ui = new UI();
+		
+		if (e == null) {
+			ui.update(profile, stats);
+		} else {
+			ui.error(e);
+		}
+	}
 }
