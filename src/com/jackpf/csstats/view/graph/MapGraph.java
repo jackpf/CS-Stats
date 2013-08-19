@@ -1,4 +1,4 @@
-package com.jackpf.csstats.view;
+package com.jackpf.csstats.view.graph;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,9 +16,9 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 import android.content.Context;
 import android.graphics.Color;
 
-public class UIGraph extends GraphicalView
+public class MapGraph extends GraphicalView
 {
-	private UIGraph(Context context, AbstractChart arg1)
+	private MapGraph(Context context, AbstractChart arg1)
 	{
 		super(context, arg1);
 	}

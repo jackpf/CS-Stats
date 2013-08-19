@@ -45,7 +45,7 @@ public class ScreenshotsParser implements Parser
     	BufferedReader br = new BufferedReader(new InputStreamReader(is));
     	
     	String line;
-    	String pattern = "<img src=\\\"((.*?)\\.resizedimage)\\\"";
+    	String pattern = "<img src=\\\"(http://cloud.*?\\.resizedimage)\\\"";
     	Pattern p = Pattern.compile(pattern);
     	while ((line = br.readLine()) != null) {
         	Matcher m = p.matcher(line);
@@ -66,6 +66,12 @@ public class ScreenshotsParser implements Parser
      */
     public String getValue(String key)
     {
-        return screenshots.get(Integer.parseInt(key));
+    	int iKey = Integer.parseInt(key);
+    	
+    	if (iKey >= screenshots.size()) {
+    		return null;
+    	}
+    	
+        return screenshots.get(iKey);
     }
 }
