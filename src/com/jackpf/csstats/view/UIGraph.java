@@ -18,7 +18,6 @@ import android.graphics.Color;
 
 public class UIGraph extends GraphicalView
 {
- 
 	private UIGraph(Context context, AbstractChart arg1)
 	{
 		super(context, arg1);
