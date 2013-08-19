@@ -13,4 +13,7 @@
 	<!-- Errors -->
 	<string name="error_not_viewable">This profile is private or friends only</string>
 
+	<!-- Labels -->
+	<string name="label_hide_chart">Hide chart</string>
+		
 </resources>

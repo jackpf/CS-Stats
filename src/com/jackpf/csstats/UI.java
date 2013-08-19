@@ -2,7 +2,10 @@ package com.jackpf.csstats;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import org.achartengine.GraphicalView;
 
@@ -28,6 +31,7 @@ public class UI
 	/**
 	 * Update UI
 	 * TODO: This may need splitting up if/when it gets bigger
+	 * TODO: ScrollView
 	 * 
 	 * @param stats
 	 */
@@ -52,6 +56,7 @@ public class UI
 		// Set username
 		((TextView) context.findViewById(R.id.steamId)).setText(profile.get("steamID"));
 		
+		// Setup tabs
 		TabHost tabHost = (TabHost) context.findViewById(R.id.tabhost);
 		tabHost.setup();
 		tabHost.setVisibility(LinearLayout.VISIBLE);
@@ -67,13 +72,14 @@ public class UI
 	            .setContent(R.id.fragment_last_game)
         );
         tabHost.addTab(
-    		tabHost.newTabSpec("Lifetime")
-	            .setIndicator("Overview")
-	            .setContent(R.id.fragment_lifetime)
+    		tabHost.newTabSpec("Maps")
+	            .setIndicator("Maps")
+	            .setContent(R.id.fragment_maps)
         );
  
         tabHost.setCurrentTab(0);
         
+        // Summary tab
         TableLayout fragmentSummary = (TableLayout) context.findViewById(R.id.fragment_summary);
         
         String[] summaryStats = {"rounds", "wins", "winpct"};
@@ -98,20 +104,92 @@ public class UI
         	fragmentSummary.addView(tr);
         }
         
+        // Maps tab
         HashMap<String, Integer> mapData = new HashMap<String, Integer>();
         
         for (String map : Data.MAPS) {
         	mapData.put(map, Integer.valueOf(stats.get("stats.maps." + map + "_rounds")));
         }
         
-        RelativeLayout chartContainer = (RelativeLayout) context.findViewById(R.id.fragment_lifetime);
+        RelativeLayout chartContainer = (RelativeLayout) context.findViewById(R.id.fragment_maps_chart);
         GraphicalView chartView = UIGraph.getNewInstance(context, mapData);
-        chartContainer.addView(chartView);
+        //chartContainer.addView(chartView);
+        
+        TableLayout mapsTable = (TableLayout) context.findViewById(R.id.fragment_maps_table);
+        
+        for (int i = 0; i < Data.MAPS.length; i++) {
+        	String map = Data.MAPS[i];
+        	
+        	TextView tvKey = new TextView(context);
+        	tvKey.setText(map);
+        	
+        	TextView tvValue1 = new TextView(context);
+        	tvValue1.setText(stats.get("stats.maps." + map + "_rounds"));
+        	
+        	TextView tvValue2 = new TextView(context);
+        	tvValue2.setText(stats.get("stats.maps." + map + "_wins"));
+        	
+        	TextView tvValue3 = new TextView(context);
+        	// If 0 rounds played, don't display 100%
+        	if (Integer.parseInt(stats.get("stats.maps." + map + "_rounds")) == 0)
+        		tvValue3.setText("~");
+        	else
+        		tvValue3.setText(Math.round(Float.parseFloat(stats.get("stats.maps." + map + "_winpct"))) + "%");
+        	
+        	TableRow tr = new TableRow(context);
+        	tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        	if (i % 2 == 1)
+        		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
+        	else
+        		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
+        	tr.addView(tvKey);
+        	tr.addView(tvValue1);
+        	tr.addView(tvValue2);
+        	tr.addView(tvValue3);
+        	
+        	mapsTable.addView(tr);
+        }
+        
+        sortTable(mapsTable, 2);
 	}
 	
+	/**
+	 * Render errors thrown by backend
+	 * 
+	 * @param e
+	 */
 	public void error(Exception e)
 	{
 		Lib.error(MainActivity.getInstance(), e.getMessage());
+	}
+	
+	/**
+	 * Sort a table view by a given column
+	 * TODO: Currently not working
+	 * 
+	 * @param table
+	 * @param sortColumn
+	 */
+	private void sortTable(TableLayout table, int sortColumn)
+	{
+		Map<Integer, TableRow> rows = new TreeMap<Integer, TableRow>();
+		
+		for(int i = 0; i < table.getChildCount(); i++) {
+		    TableRow row = (TableRow) table.getChildAt(i);
+		    
+		    try {
+		    	rows.put(Integer.parseInt(((TextView) row.getChildAt(sortColumn)).getText().toString()), row);
+		    } catch(NumberFormatException e) {
+		    }
+		}
+		
+		for (TableRow row : rows.values()) {
+		    table.removeView(row);
+		}
+	
+		for (TableRow row : rows.values()) { 
+		    table.addView(row);
+		}
 	}
 	
 	/**

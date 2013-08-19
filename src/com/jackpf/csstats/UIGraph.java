@@ -52,6 +52,7 @@ public class UIGraph extends GraphicalView
 		
 		defaultRenderer.setShowLabels(true);
 		defaultRenderer.setShowLegend(false);
+		defaultRenderer.setLabelsTextSize(20);
 		
 		return defaultRenderer;
 	}
@@ -62,7 +63,7 @@ public class UIGraph extends GraphicalView
 		
 		Iterator<Entry<String, Integer>> iterator = mapData.entrySet().iterator();
 		while (iterator.hasNext()) {
-		    Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)iterator.next();
+		    Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>) iterator.next();
 
 		    String key = pair.getKey();
 		    int value =  pair.getValue();

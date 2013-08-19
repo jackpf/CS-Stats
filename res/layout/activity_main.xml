@@ -56,8 +56,7 @@
 	            <TableLayout
 					android:id="@+id/fragment_summary"
 					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical" />
+					android:layout_height="wrap_content" />
 	            
 	            <TextView
 					android:id="@+id/fragment_last_game"
@@ -65,10 +64,51 @@
 					android:layout_height="wrap_content"
 					android:text="Last game" />
 	            
-	            <RelativeLayout
-					android:id="@+id/fragment_lifetime"
+	            <LinearLayout
+					android:id="@+id/fragment_maps"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
+					android:layout_height="wrap_content">
+					
+	                <RelativeLayout
+						android:id="@+id/fragment_maps_chart"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+	            
+		            <TableLayout
+						android:id="@+id/fragment_maps_table"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:stretchColumns="1">
+						
+			            <TableRow
+					        android:layout_width="fill_parent"
+					        android:layout_height="wrap_content">
+					    
+			                <TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="Map" />
+					    
+			                <TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="Rounds" />
+					    
+			                <TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="Wins" />
+					    
+			                <TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="Win %" />
+			            
+			            </TableRow>
+		            
+		            </TableLayout>
+	                
+				</LinearLayout>
 	            
 	        </FrameLayout>
 	         

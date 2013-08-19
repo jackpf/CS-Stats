@@ -17,24 +17,23 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int fragment_summary_icon=0x7f020000;
-        public static final int header_border=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int image_border=0x7f020003;
+        public static final int header_border=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int image_border=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f080007;
+        public static final int action_settings=0x7f080008;
         public static final int avatar=0x7f080000;
-        public static final int blah=0x7f080006;
         public static final int fragment_last_game=0x7f080004;
-        public static final int fragment_lifetime=0x7f080005;
+        public static final int fragment_maps=0x7f080005;
+        public static final int fragment_maps_chart=0x7f080006;
+        public static final int fragment_maps_table=0x7f080007;
         public static final int fragment_summary=0x7f080003;
         public static final int steamId=0x7f080001;
         public static final int tabhost=0x7f080002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int fragment_summary=0x7f030001;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -45,6 +44,9 @@ public final class R {
         /**  Errors 
          */
         public static final int error_not_viewable=0x7f050006;
+        /**  Labels 
+         */
+        public static final int label_hide_chart=0x7f050007;
         public static final int rate_b1=0x7f050003;
         public static final int rate_b2=0x7f050004;
         public static final int rate_b3=0x7f050005;
@@ -68,5 +70,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        public static final int link=0x7f060002;
     }
 }
