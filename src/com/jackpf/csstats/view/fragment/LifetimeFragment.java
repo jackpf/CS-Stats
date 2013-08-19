@@ -40,7 +40,7 @@ public class LifetimeFragment implements Fragment
         		 types	= {"int", "int", "int", "int",
 						   "int", "int", "int", "int",
 						   "int", "int", "int", "int", "int",
-						   "int", "int", "int", "int", "int"};
+						   "money", "int", "int", "int", "int"};
         
         for (int i = 0; i < stats.length; i++) {
         	String stat = stats[i], key = keys[i], type = types[i];

@@ -1,7 +1,10 @@
 package com.jackpf.csstats.view.fragment;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -30,29 +33,31 @@ public class SummaryFragment implements Fragment
 		TableLayout fragment = (TableLayout) context.findViewById(R.id.fragment_summary);
         
         String[] stats	= {"kills", "deaths", "kdratio",
-        						   "rounds", "wins", "winpct", "stars",
-        						   "shots", "shotshit", "shotpct",
-        						   "timeplayedfmt"},
+        						   "rounds", "wins", "winpct", /*"stars",*/
+        						   "shots", "shotshit", "shotpct"},
         		 keys	= {"Kills", "Deaths", "K/D",
-        						   "Rounds", "Wins", "Win %", "Stars",
-        						   "Shots", "Shots hit", "Hit %",
-        						   "Time Played"},
-        		 types	= {"string", "string", "float",
-        						   "int", "int", "pct", "int",
-        						   "int", "int", "pct",
-        						   "string"};
+        						   "Rounds", "Wins", "Win %", /*"Stars",*/
+        						   "Shots", "Shots hit", "Hit %"},
+        		 types	= {"int", "int", "float",
+        						   "int", "int", "pct", /*"int",*/
+        						   "int", "int", "pct"};
         
-        for (int i = 0; i < stats.length; i++) {
-        	String stat = stats[i], key = keys[i], type = types[i];
+        for (int i = 0, k = 0; i < stats.length; k++) {
+        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat_triplet, null);
         	
-        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.summary." + stat), type);
+        	for (int j = 1; i < stats.length && j <= 3; j++, i++) {
+	        	String stat = stats[i], key = keys[i], type = types[i];
+	        	
+	        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.summary." + stat), type);
+	        	//TODO: Put in values
+	        	String html = "<small>" + key + "</small><br /><strong>" + value + "</strong>";
+	        	
+	        	int tv = context.getResources().getIdentifier("col" + j , "id", context.getPackageName());
+	        	
+	        	((TextView) tr.findViewById(tv)).setText(Html.fromHtml(html));
+        	}
         	
-        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat, null);
-        	
-        	((TextView) tr.findViewById(R.id.key)).setText(key);
-        	((TextView) tr.findViewById(R.id.value)).setText(value);
-        	
-        	if (i % 2 == 1)
+        	if (k % 2 == 1)
         		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
         	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
@@ -77,10 +82,14 @@ public class SummaryFragment implements Fragment
 		
 		// Do some rounding for ints to make sure they're ints
 		// Format floats to 2dp
-    	if (type.equals("int") || type.equals("pct")) {
+    	if (type.equals("int") || type.equals("pct") || type.equals("money")) {
     		value = Integer.toString(Math.round(Float.parseFloat(value)));
+    		value = new DecimalFormat("#,###").format(Double.parseDouble(value));
+    		
     		if (type.equals("pct")) {
     			value += "%";
+    		} else if(type.equals("money")) {
+    			value = "$" + value;
     		}
     	} else if (type.equals("float")) {
     		value = String.format("%.2f", Float.parseFloat(value));

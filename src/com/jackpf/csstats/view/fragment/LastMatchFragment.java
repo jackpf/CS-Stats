@@ -45,7 +45,7 @@ public class LastMatchFragment implements Fragment
 			        	   "string", "int", "int", "int",
 			        	   "int", "int", "float", "float",
 						   "int", "int", "int",
-						   "int", "float",
+						   "money", "money",
 						   "int", "int"};
         
         for (int i = 0; i < stats.length; i++) {

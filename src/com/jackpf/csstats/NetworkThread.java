@@ -16,7 +16,7 @@ public class NetworkThread extends AsyncTask<String, Void, Void>
 	@Override
     protected Void doInBackground(String... params)
     {
-    	SteamUser user = new SteamUser("seanyshaunshawn");
+    	SteamUser user = new SteamUser("jcak");
     	
         try {
         	profile = user.getProfile();

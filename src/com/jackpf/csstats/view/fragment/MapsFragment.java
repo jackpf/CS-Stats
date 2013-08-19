@@ -42,7 +42,7 @@ public class MapsFragment implements Fragment
         
         RelativeLayout chartContainer = (RelativeLayout) context.findViewById(R.id.fragment_maps_chart);
         GraphicalView chartView = MapGraph.getNewInstance(context, mapData);
-        chartContainer.addView(chartView);
+        //chartContainer.addView(chartView);
         
         TableLayout mapsTable = (TableLayout) context.findViewById(R.id.fragment_maps_table);
         
