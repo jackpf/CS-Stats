@@ -74,11 +74,9 @@ public class SteamUser
      */
     public SteamStats getProfile() throws Exception
     {
-        SteamStats stats = new SteamStats(this, SteamStats.PROFILE_URL);
-
-        stats.request().parse(new XmlParser());
-        
-        return stats;
+        return new SteamStats(this, SteamStats.PROFILE_URL)
+            .request()
+            .parse(new XmlParser());
     }
     
     /**
@@ -88,10 +86,8 @@ public class SteamUser
      */
     public SteamStats getStats() throws Exception
     {
-        SteamStats stats = new SteamStats(this, SteamStats.CSSTATS_URL);
-        
-        stats.request().parse(new XmlParser());
-        
-        return stats;
+        return new SteamStats(this, SteamStats.CSSTATS_URL)
+            .request()
+            .parse(new XmlParser());
     }
 }

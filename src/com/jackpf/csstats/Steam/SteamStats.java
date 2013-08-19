@@ -47,11 +47,6 @@ public class SteamStats
      * Response
      */
     private InputStream response;
-    
-    /**
-     * Parsed response
-     */
-    private Object parsedResponse;
 
     /**
      * Construct
@@ -92,12 +87,14 @@ public class SteamStats
     /**
      * Parse requested page
      */
-    public void parse(Parser parser) throws Exception
+    public SteamStats parse(Parser parser) throws Exception
     {
     	this.parser = parser;
     	
     	parser.setContent(response);
-        parsedResponse = parser.parse();
+        parser.parse();
+        
+        return this;
     }
     
     /**
@@ -108,7 +105,7 @@ public class SteamStats
      */
     public String get(String key)
     {
-    	return parser.getValue(parsedResponse, key);
+    	return parser.getValue(key);
     }
 
     /**

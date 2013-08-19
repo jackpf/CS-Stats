@@ -20,10 +20,15 @@ import com.jackpf.csstats.Steam.model.Parser;
  */
 public class XmlParser implements Parser
 {
-	/**
-	 * Xml stream
-	 */
+    /**
+     * Xml stream
+     */
     private InputStream is;
+
+    /**
+     * Parsed xml root
+     */
+    private Element root;
     
     /**
      * Set input stream
@@ -42,26 +47,38 @@ public class XmlParser implements Parser
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public Element parse() throws Exception
+    public Parser parse() throws Exception
     {
     	DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = db.parse(is);
 		
-		return document.getDocumentElement();
+		root = document.getDocumentElement();
+
+        return this;
+    }
+
+    /**
+     * Public accessor for getValue()
+     * Obscures root node
+     *
+     * @param key
+     * @return string
+     */
+    public String getValue(String key)
+    {
+        return getValue(root, key);
     }
     
     /**
-     * Get node value by key names
+     * Recursive function to get node value by key names
      * Eg. "stats.weapons.deagle_shots"
      * 
      * @param node
      * @param key
      * @return string
      */
-    public String getValue(Object _node, String key)
+    private String getValue(Node node, String key)
     {
-    	Node node = (Node) _node;
-    	
     	String[] keys = key.split("\\.");
     	NodeList stats = node.getChildNodes();
 		
