@@ -1,16 +1,15 @@
 package com.jackpf.csstats.Steam;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
+
+import com.jackpf.csstats.Steam.model.Parser;
 
 
 /**
@@ -42,12 +41,17 @@ public class SteamStats
     /**
      * Parser
      */
-    private XmlParser parser;
+    private Parser parser;
     
     /**
-     * Parsed xml root
+     * Response
      */
-    private Element xml;
+    private InputStream response;
+    
+    /**
+     * Parsed response
+     */
+    private Object parsedResponse;
 
     /**
      * Construct
@@ -60,13 +64,15 @@ public class SteamStats
         this.user = user;
         this.url = url;
     }
-
+    
     /**
-     * Get a given user's stats for a given xml file
+     * Request given url
+     * 
+     * @return this
      */
-    public void getStats() throws IOException, ClientProtocolException, ParserConfigurationException, SAXException
+    public SteamStats request() throws Exception
     {
-        DefaultHttpClient client = new DefaultHttpClient();
+    	DefaultHttpClient client = new DefaultHttpClient();
 
         HttpGet request = new HttpGet(replaceVar(url, "id", user.getSteamId()));
 
@@ -77,20 +83,32 @@ public class SteamStats
         if (responseCode != 200) {
             throw new IOException(String.format("Server returned status code: %d", responseCode));
         }
+        
+        this.response = response.getEntity().getContent();
+        
+        return this;
+    }
 
-        parser = new XmlParser(response.getEntity().getContent());
-        xml = parser.parse();
+    /**
+     * Parse requested page
+     */
+    public void parse(Parser parser) throws Exception
+    {
+    	this.parser = parser;
+    	
+    	parser.setContent(response);
+        parsedResponse = parser.parse();
     }
     
     /**
-     * Get key from the parsed xml
+     * Get key from the parsed response
      * 
      * @param key
      * @return
      */
     public String get(String key)
     {
-    	return parser.getValue(xml, key);
+    	return parser.getValue(parsedResponse, key);
     }
 
     /**

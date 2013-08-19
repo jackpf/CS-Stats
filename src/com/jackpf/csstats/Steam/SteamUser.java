@@ -1,5 +1,7 @@
 package com.jackpf.csstats.Steam;
 
+import com.jackpf.csstats.Steam.parser.XmlParser;
+
 /**
  * Steam User
  */
@@ -73,8 +75,8 @@ public class SteamUser
     public SteamStats getProfile() throws Exception
     {
         SteamStats stats = new SteamStats(this, SteamStats.PROFILE_URL);
-        
-        stats.getStats();
+
+        stats.request().parse(new XmlParser());
         
         return stats;
     }
@@ -88,7 +90,7 @@ public class SteamUser
     {
         SteamStats stats = new SteamStats(this, SteamStats.CSSTATS_URL);
         
-        stats.getStats();
+        stats.request().parse(new XmlParser());
         
         return stats;
     }

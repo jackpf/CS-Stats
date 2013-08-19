@@ -2,6 +2,7 @@ package com.jackpf.csstats;
 
 import com.jackpf.csstats.Steam.SteamStats;
 import com.jackpf.csstats.Steam.SteamUser;
+import com.jackpf.csstats.view.UI;
 
 import android.os.AsyncTask;
 
