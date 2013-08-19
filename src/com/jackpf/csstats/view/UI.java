@@ -2,10 +2,8 @@ package com.jackpf.csstats.view;
 
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.achartengine.GraphicalView;
 
@@ -15,6 +13,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,8 +25,6 @@ import android.widget.TextView;
 
 import com.jackpf.csstats.MainActivity;
 import com.jackpf.csstats.R;
-import com.jackpf.csstats.R.id;
-import com.jackpf.csstats.R.string;
 import com.jackpf.csstats.Steam.Data;
 import com.jackpf.csstats.Steam.SteamStats;
 import com.jackpf.csstats.lib.Lib;
@@ -40,9 +38,12 @@ public class UI
 	 * 
 	 * @param stats
 	 */
-	public void update(SteamStats profile, SteamStats stats)
+	public void update(SteamStats profile,
+		SteamStats stats,
+		SteamStats screenshots)
 	{
-		Activity context = MainActivity.getInstance();
+		final Activity context = MainActivity.getInstance();
+		final LayoutInflater inflator = (LayoutInflater) context.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
 		
 		if (Integer.parseInt(stats.get("visibilityState")) != SteamStats.VIEWABLE) {
 			Lib.error(
@@ -81,6 +82,24 @@ public class UI
 	            .setIndicator("Maps")
 	            .setContent(R.id.fragment_maps)
         );
+        final SteamStats screenshotsTab = screenshots;
+        tabHost.addTab(
+    		tabHost.newTabSpec("Screenshots")
+	            .setIndicator("Screenshots")
+	            .setContent(new TabHost.TabContentFactory() {
+	                public View createTabContent(String tag) {
+	                    LinearLayout tabContent = (LinearLayout) context.findViewById(R.id.fragment_screenshots);
+	                    
+	                    ImageView iv = new ImageView(context);
+	                    
+	                    new ImageLoader(iv).execute(screenshotsTab.get("0"));
+	                    
+	                    tabContent.addView(iv);
+	                    
+	                    return tabContent;
+	                }
+	            })
+        );
  
         tabHost.setCurrentTab(0);
         
@@ -91,20 +110,15 @@ public class UI
         for (int i = 0; i < summaryStats.length; i++) {
         	String stat = summaryStats[i];
         	
-        	TextView tvKey = new TextView(context);
-        	tvKey.setText(stat);
+        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat, null);
         	
-        	TextView tvValue = new TextView(context);
-        	tvValue.setText(stats.get("stats.summary." + stat));
+        	((TextView) tr.findViewById(R.id.key)).setText(stat);
+        	((TextView) tr.findViewById(R.id.value)).setText(stats.get("stats.summary." + stat));
         	
-        	TableRow tr = new TableRow(context);
-        	tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         	if (i % 2 == 1)
         		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
         	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
-        	tr.addView(tvKey);
-        	tr.addView(tvValue);
         	
         	fragmentSummary.addView(tr);
         }
@@ -125,32 +139,22 @@ public class UI
         for (int i = 0; i < Data.MAPS.length; i++) {
         	String map = Data.MAPS[i];
         	
-        	TextView tvKey = new TextView(context);
-        	tvKey.setText(map);
+        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat, null);
         	
-        	TextView tvValue1 = new TextView(context);
-        	tvValue1.setText(stats.get("stats.maps." + map + "_rounds"));
+        	((TextView) tr.findViewById(R.id.map)).setText(map);
+        	((TextView) tr.findViewById(R.id.rounds)).setText(stats.get("stats.maps." + map + "_rounds"));
+        	((TextView) tr.findViewById(R.id.wins)).setText(stats.get("stats.maps." + map + "_wins"));
         	
-        	TextView tvValue2 = new TextView(context);
-        	tvValue2.setText(stats.get("stats.maps." + map + "_wins"));
-        	
-        	TextView tvValue3 = new TextView(context);
         	// If 0 rounds played, don't display 100%
         	if (Integer.parseInt(stats.get("stats.maps." + map + "_rounds")) == 0)
-        		tvValue3.setText("~");
+        		((TextView) tr.findViewById(R.id.winpct)).setText("~");
         	else
-        		tvValue3.setText(Math.round(Float.parseFloat(stats.get("stats.maps." + map + "_winpct"))) + "%");
+        		((TextView) tr.findViewById(R.id.winpct)).setText(Math.round(Float.parseFloat(stats.get("stats.maps." + map + "_winpct"))) + "%");
         	
-        	TableRow tr = new TableRow(context);
-        	tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         	if (i % 2 == 1)
         		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
         	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
-        	tr.addView(tvKey);
-        	tr.addView(tvValue1);
-        	tr.addView(tvValue2);
-        	tr.addView(tvValue3);
         	
         	mapsTable.addView(tr);
         }
@@ -228,6 +232,4 @@ public class UI
 	        bmImage.setImageBitmap(result);
 	    }
 	}
-	
-	
 }

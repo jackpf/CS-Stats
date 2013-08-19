@@ -109,6 +109,12 @@
 		            </TableLayout>
 	                
 				</LinearLayout>
+				
+	            <LinearLayout
+					android:id="@+id/fragment_screenshots"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical" />
 	            
 	        </FrameLayout>
 	         

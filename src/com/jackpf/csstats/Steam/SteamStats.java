@@ -21,6 +21,7 @@ public class SteamStats
      * URL of counter strike stats xml file
      */
 	public final static String PROFILE_URL = "http://steamcommunity.com/id/{id}?xml=1";
+    public final static String SCREENSHOTS_URL = "http://steamcommunity.com/id/{id}/screenshots?appid=" + Data.APP_ID + "&sort=newestfirst&browsefilter=myfiles&view=imagewall";
     public final static String CSSTATS_URL = "http://steamcommunity.com/id/{id}/stats/CS:S?xml=1";
 
     /**

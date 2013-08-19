@@ -2,6 +2,8 @@ package com.jackpf.csstats.Steam;
 
 public class Data
 {
+	public final static int APP_ID = 240;
+	
 	public final static String[] MAPS = {
 		"cs_assault",
 		"cs_compound",

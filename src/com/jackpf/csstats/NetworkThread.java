@@ -1,14 +1,15 @@
 package com.jackpf.csstats;
 
+import android.os.AsyncTask;
+
 import com.jackpf.csstats.Steam.SteamStats;
 import com.jackpf.csstats.Steam.SteamUser;
+import com.jackpf.csstats.Steam.parser.ScreenshotsParser;
 import com.jackpf.csstats.view.UI;
-
-import android.os.AsyncTask;
 
 public class NetworkThread extends AsyncTask<String, Void, Void>
 {
-	SteamStats profile, stats;
+	SteamStats profile, stats, screenshots;
 	
 	Exception e = null;
 	
@@ -20,6 +21,9 @@ public class NetworkThread extends AsyncTask<String, Void, Void>
         try {
         	profile = user.getProfile();
         	stats = user.getStats();
+        	screenshots = new SteamStats(user, SteamStats.SCREENSHOTS_URL)
+	            .request()
+	            .parse(new ScreenshotsParser());
         } catch(Exception e) {
             this.e = e;
         }
@@ -33,7 +37,9 @@ public class NetworkThread extends AsyncTask<String, Void, Void>
 		UI ui = new UI();
 		
 		if (e == null) {
-			ui.update(profile, stats);
+			ui.update(profile,
+				stats,
+				screenshots);
 		} else {
 			ui.error(e);
 		}
