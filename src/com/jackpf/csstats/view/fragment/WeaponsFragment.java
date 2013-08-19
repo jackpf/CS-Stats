@@ -14,17 +14,15 @@ import com.jackpf.csstats.R;
 import com.jackpf.csstats.view.UI;
 import com.jackpf.csstats.view.model.Fragment;
 
-public class LastGameFragment implements Fragment
+public class WeaponsFragment implements Fragment
 {
 	public TabSpec getSpec(TabHost tabHost)
 	{
-		return tabHost.newTabSpec("Last Game")
-            .setIndicator("Last Game")
-            .setContent(R.id.fragment_last_game);
+		return null;
 	}
 	
 	public void setup(UI ui, Activity context)
 	{
-		
+		return;
 	}
 }

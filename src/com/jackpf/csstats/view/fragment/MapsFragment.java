@@ -42,7 +42,7 @@ public class MapsFragment implements Fragment
         
         RelativeLayout chartContainer = (RelativeLayout) context.findViewById(R.id.fragment_maps_chart);
         GraphicalView chartView = MapGraph.getNewInstance(context, mapData);
-        //chartContainer.addView(chartView);
+        chartContainer.addView(chartView);
         
         TableLayout mapsTable = (TableLayout) context.findViewById(R.id.fragment_maps_table);
         
@@ -59,7 +59,18 @@ public class MapsFragment implements Fragment
         	if (Integer.parseInt(ui.get("stats").get("stats.maps." + map + "_rounds")) == 0)
         		((TextView) tr.findViewById(R.id.winpct)).setText("~");
         	else
-        		((TextView) tr.findViewById(R.id.winpct)).setText(Math.round(Float.parseFloat(ui.get("stats").get("stats.maps." + map + "_winpct"))) + "%");
+        	{
+        		int winpct = Math.round(Float.parseFloat(ui.get("stats").get("stats.maps." + map + "_winpct")));
+        		TextView winpctTv = (TextView) tr.findViewById(R.id.winpct);
+        		winpctTv.setText(winpct + "%");
+        		
+        		// Colour
+        		if (winpct >= 50) {
+        			winpctTv.setTextColor(Color.GREEN);
+        		} else {
+        			winpctTv.setTextColor(Color.RED);
+        		}
+        	}
         	
         	if (i % 2 == 1)
         		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));

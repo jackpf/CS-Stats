@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.text.Html;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,9 +22,11 @@ import com.jackpf.csstats.MainActivity;
 import com.jackpf.csstats.R;
 import com.jackpf.csstats.Steam.SteamStats;
 import com.jackpf.csstats.lib.Lib;
-import com.jackpf.csstats.view.fragment.LastGameFragment;
+import com.jackpf.csstats.view.fragment.LastMatchFragment;
+import com.jackpf.csstats.view.fragment.LifetimeFragment;
 import com.jackpf.csstats.view.fragment.MapsFragment;
 import com.jackpf.csstats.view.fragment.SummaryFragment;
+import com.jackpf.csstats.view.fragment.WeaponsFragment;
 import com.jackpf.csstats.view.model.Fragment;
 
 public class UI
@@ -69,7 +72,10 @@ public class UI
 		);
 		
 		// Set username
-		((TextView) context.findViewById(R.id.steamId)).setText(profile.get("steamID"));
+		// Parse html since it's given as special chars
+		((TextView) context.findViewById(R.id.steamId)).setText(
+			Html.fromHtml(profile.get("steamID"))
+		);
 		
 		// Setup tabs
 		TabHost tabHost = (TabHost) context.findViewById(R.id.tabhost);
@@ -78,8 +84,9 @@ public class UI
 		
 		Fragment[] fragments = {
 			new SummaryFragment(),
+			new LastMatchFragment(),
+			new LifetimeFragment(),
 			new MapsFragment(),
-			new LastGameFragment(),
 		};
 		
 		for (Fragment fragment : fragments) {
