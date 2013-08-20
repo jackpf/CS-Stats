@@ -21,12 +21,26 @@
             android:layout_height="92sp"
             android:background="@drawable/image_border" />
         
-        <TextView
-            android:id="@+id/steamId"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5sp"
-            android:paddingLeft="5sp" />
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical">
+		    
+	        <TextView
+	            android:id="@+id/steamId"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="5sp"
+	            android:paddingLeft="5sp" />
+	        
+	        <TextView
+	            android:id="@+id/steamId_stats"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="5sp"
+	            android:paddingLeft="5sp" />
+	        
+	    </LinearLayout>
         
     </LinearLayout>
     
@@ -56,82 +70,38 @@
 	            <ScrollView
 		            android:layout_width="match_parent"
 		            android:layout_height="match_parent">
-	            <RelativeLayout
-		            android:layout_width="match_parent"
-		            android:layout_height="match_parent">
-	            
-	            <TableLayout
-					android:id="@+id/fragment_summary"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content" />
-	            
-	            <TableLayout
-					android:id="@+id/fragment_last_match"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content" />
-	            
-	            <TableLayout
-					android:id="@+id/fragment_lifetime"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content" />
-	            
-	            <LinearLayout
-					android:id="@+id/fragment_maps"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content">
-					
-	                <RelativeLayout
-						android:id="@+id/fragment_maps_chart"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content" />
-	            
-		            <TableLayout
-						android:id="@+id/fragment_maps_table"
-						android:layout_width="fill_parent"
-						android:layout_height="wrap_content"
-						android:stretchColumns="1">
-						
-			            <TableRow
-					        android:layout_width="fill_parent"
-					        android:layout_height="wrap_content">
-					    
-			                <TextView
-								android:layout_width="0dp"
-								android:layout_weight="0.4"
-								android:layout_height="wrap_content"
-								android:text="Map" />
-					    
-			                <TextView
-								android:layout_width="0dp"
-								android:layout_weight="0.2"
-								android:layout_height="wrap_content"
-								android:text="Rounds" />
-					    
-			                <TextView
-								android:layout_width="0dp"
-								android:layout_weight="0.2"
-								android:layout_height="wrap_content"
-								android:text="Wins" />
-					    
-			                <TextView
-								android:layout_width="0dp"
-								android:layout_weight="0.2"
-								android:layout_height="wrap_content"
-								android:text="Win %" />
-			            
-			            </TableRow>
 		            
-		            </TableLayout>
-	                
-				</LinearLayout>
-				
-	            <LinearLayout
-					android:id="@+id/fragment_screenshots"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:orientation="vertical" />
-	            
-	            </RelativeLayout>
+		            <RelativeLayout
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content">
+			            
+		                <LinearLayout
+						    android:layout_width="fill_parent"
+						    android:layout_height="wrap_content"
+						    android:orientation="vertical"
+							android:id="@+id/fragment_summary" />
+		            
+			            
+		                <LinearLayout
+						    android:layout_width="fill_parent"
+						    android:layout_height="wrap_content"
+						    android:orientation="vertical"
+							android:id="@+id/fragment_last_match" />
+			            
+		                <LinearLayout
+						    android:layout_width="fill_parent"
+						    android:layout_height="wrap_content"
+						    android:orientation="vertical"
+							android:id="@+id/fragment_lifetime" />
+			            
+		                <LinearLayout
+						    android:layout_width="fill_parent"
+						    android:layout_height="wrap_content"
+						    android:orientation="vertical"
+							android:id="@+id/fragment_maps" />
+		            
+		            </RelativeLayout>
+		            
 	            </ScrollView>
 	            
 	        </FrameLayout>

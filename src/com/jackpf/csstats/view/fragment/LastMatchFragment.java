@@ -3,8 +3,10 @@ package com.jackpf.csstats.view.fragment;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,8 +28,10 @@ public class LastMatchFragment implements Fragment
 	public void setup(UI ui, Activity context)
 	{
 		final LayoutInflater inflator = (LayoutInflater) context.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
+
+		View fragment = inflator.inflate(R.layout._fragment_last_match, null);
 		
-		TableLayout fragment = (TableLayout) context.findViewById(R.id.fragment_last_match);
+		TableLayout table = (TableLayout) fragment.findViewById(R.id.fragment_last_match_table);
         
         String[] stats	= {"t_wins", "ct_wins", "wins",
 			        	   "favwpn", "shots", "hits", "dmg",
@@ -35,12 +39,6 @@ public class LastMatchFragment implements Fragment
 						   "acc", "stars", "max_players",
 						   "money", "costkill",
 						   "dominations", "revenges"},
-        		 keys	= {"T wins", "CT wins", "Your wins",
-			        	   "Fav. weapon", "Shots", "Hits", "Damage inflicted",
-			        	   "Kills", "Deaths", "K/D Ratio", "K/S Ratio",
-						   "Accuracy", "Stars earned", "Players",
-						   "Money spent", "Cost per kill",
-						   "Dominations", "Revenges"},
         		 types	= {"int", "int", "int",
 			        	   "string", "int", "int", "int",
 			        	   "int", "int", "float", "float",
@@ -49,7 +47,8 @@ public class LastMatchFragment implements Fragment
 						   "int", "int"};
         
         for (int i = 0; i < stats.length; i++) {
-        	String stat = stats[i], key = keys[i], type = types[i];
+        	String stat = stats[i], type = types[i];
+        	String key = SummaryFragment.getKey(stat, context);
         	
         	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.lastmatch." + stat), type);
         	
@@ -63,7 +62,9 @@ public class LastMatchFragment implements Fragment
         	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
         	
-        	fragment.addView(tr);
+        	table.addView(tr);
         }
+        
+		((LinearLayout) context.findViewById(R.id.fragment_last_match)).addView(fragment);
 	}
 }

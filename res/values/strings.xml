@@ -14,6 +14,42 @@
 	<string name="error_not_viewable">This profile is private or friends only</string>
 
 	<!-- Labels -->
-	<string name="label_hide_chart">Hide chart</string>
-		
+	<string name="bombsplanted">Bombs planted</string>
+	<string name="bombsdefused">Bombs defused</string>
+	<string name="hostagesrescued">Hostages rescued</string>
+	<string name="pistolrounds">Pistol rounds</string>
+	<string name="dmg">Damage inflicted</string>
+	<string name="dominations">Dominations</string>
+	<string name="dominationoverkills">Domination overkills</string>
+	<string name="revenges">Revenges</string>
+	<string name="headshots">Headshots</string>
+	<string name="zsniperkills">Sniper kills</string>
+	<string name="blindkills">Blind kills</string>
+	<string name="enemywpnkills">Kills w/ enemy wpn.</string>
+	<string name="knifekills">Knife kills</string>
+	<string name="money">Money spent</string>
+	<string name="decals">Decals sprayed</string>
+	<string name="nvgdmg">Nightvision dmg.</string>
+	<string name="winbroken">Windows broken</string>
+	<string name="wpndonated">Weapons donated</string>
+	<string name="t_wins">T wins</string>
+	<string name="ct_wins">CT wins</string>
+	<string name="wins">Wins</string>
+	<string name="winpct">Win %</string>
+	<string name="favwpn">Fav. weapon</string>
+	<string name="shots">Shots</string>
+	<string name="hits">Hits</string>
+	<string name="shotshit">Hits</string>
+	<string name="shotpct">Hit %</string>
+	<string name="kills">Kills</string>
+	<string name="deaths">Deaths</string>
+	<string name="kdratio">K/D Ratio</string>
+	<string name="ksratio">K/S Ratio</string>
+	<string name="acc">Accuracy</string>
+	<string name="stars">Stars earned</string>
+	<string name="max_players">Players</string>
+	<string name="costkill">Cost per kill</string>
+	<string name="rounds">Rounds</string>
+	<string name="key_not_found">*key not found*</string>
+	
 </resources>

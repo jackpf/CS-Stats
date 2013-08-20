@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TableLayout;
@@ -29,15 +31,14 @@ public class SummaryFragment implements Fragment
 	public void setup(UI ui, Activity context)
 	{
 		final LayoutInflater inflator = (LayoutInflater) context.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
+
+		View fragment = inflator.inflate(R.layout._fragment_summary, null);
 		
-		TableLayout fragment = (TableLayout) context.findViewById(R.id.fragment_summary);
+		TableLayout table = (TableLayout) fragment.findViewById(R.id.fragment_summary_table);
         
         String[] stats	= {"kills", "deaths", "kdratio",
         						   "rounds", "wins", "winpct", /*"stars",*/
         						   "shots", "shotshit", "shotpct"},
-        		 keys	= {"Kills", "Deaths", "K/D",
-        						   "Rounds", "Wins", "Win %", /*"Stars",*/
-        						   "Shots", "Shots hit", "Hit %"},
         		 types	= {"int", "int", "float",
         						   "int", "int", "pct", /*"int",*/
         						   "int", "int", "pct"};
@@ -46,7 +47,8 @@ public class SummaryFragment implements Fragment
         	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat_triplet, null);
         	
         	for (int j = 1; i < stats.length && j <= 3; j++, i++) {
-	        	String stat = stats[i], key = keys[i], type = types[i];
+	        	String stat = stats[i], type = types[i];
+	        	String key = SummaryFragment.getKey(stat, context);
 	        	
 	        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.summary." + stat), type);
 	        	//TODO: Put in values
@@ -62,8 +64,10 @@ public class SummaryFragment implements Fragment
         	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
         	
-        	fragment.addView(tr);
+        	table.addView(tr);
         }
+        
+		((LinearLayout) context.findViewById(R.id.fragment_summary)).addView(fragment);
 	}
 	
 	/**
@@ -96,5 +100,23 @@ public class SummaryFragment implements Fragment
     	}
     	
     	return value;
+	}
+	
+	/**
+	 * This is a bit naughty too
+	 * 
+	 * @param name
+	 * @param context
+	 * @return
+	 */
+	public static String getKey(String name, Activity context)
+	{
+		int keyRsrc = context.getResources().getIdentifier(name , "string", context.getPackageName());
+    	
+		if (keyRsrc == 0) {
+        	keyRsrc = context.getResources().getIdentifier("key_not_found" , "string", context.getPackageName());
+    	}
+    	
+    	return context.getString(keyRsrc);
 	}
 }

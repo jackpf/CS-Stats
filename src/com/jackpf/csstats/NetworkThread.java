@@ -9,21 +9,18 @@ import com.jackpf.csstats.view.UI;
 
 public class NetworkThread extends AsyncTask<String, Void, Void>
 {
-	SteamStats profile, stats, screenshots;
+	SteamStats profile, stats;
 	
 	Exception e = null;
 	
 	@Override
     protected Void doInBackground(String... params)
     {
-    	SteamUser user = new SteamUser("jcak");
+    	SteamUser user = new SteamUser(params[0]);
     	
         try {
         	profile = user.getProfile();
         	stats = user.getStats();
-        	screenshots = new SteamStats(user, SteamStats.SCREENSHOTS_URL)
-	            .request()
-	            .parse(new ScreenshotsParser());
         } catch(Exception e) {
             this.e = e;
         }
@@ -38,8 +35,7 @@ public class NetworkThread extends AsyncTask<String, Void, Void>
 		
 		if (e == null) {
 			ui.update(profile,
-				stats,
-				screenshots);
+				stats);
 		} else {
 			ui.error(e);
 		}

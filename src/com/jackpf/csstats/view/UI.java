@@ -47,13 +47,11 @@ public class UI
 	 * @param stats
 	 */
 	public void update(SteamStats profile,
-		SteamStats stats,
-		SteamStats screenshots)
+		SteamStats stats)
 	{
 		// Store stats for fragments
 		this.stats.put("profile", profile);
 		this.stats.put("stats", stats);
-		this.stats.put("screenshots", screenshots);
 		
 		Activity context = MainActivity.getInstance();
 		
@@ -75,6 +73,18 @@ public class UI
 		// Parse html since it's given as special chars
 		((TextView) context.findViewById(R.id.steamId)).setText(
 			Html.fromHtml(profile.get("steamID"))
+		);
+		
+		// Set some stats
+		// TODO: This and other stuff should be in strings.xml
+		((TextView) context.findViewById(R.id.steamId_stats)).setText(
+			Html.fromHtml(
+				String.format(
+					"Total playtime: %s<br />Past 2 weeks: %s",
+					stats.get("stats.summary.timeplayedfmt"),
+					stats.get("stats.hoursPlayed")
+				)
+			)
 		);
 		
 		// Setup tabs

@@ -7,8 +7,10 @@ import org.achartengine.GraphicalView;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -33,6 +35,8 @@ public class MapsFragment implements Fragment
 	public void setup(UI ui, Activity context)
 	{
 		final LayoutInflater inflator = (LayoutInflater) context.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
+
+		View fragment = inflator.inflate(R.layout._fragment_maps, null);
 		
 		HashMap<String, Integer> mapData = new HashMap<String, Integer>();
         
@@ -40,11 +44,11 @@ public class MapsFragment implements Fragment
         	mapData.put(map, Integer.valueOf(ui.get("stats").get("stats.maps." + map + "_rounds")));
         }
         
-        RelativeLayout chartContainer = (RelativeLayout) context.findViewById(R.id.fragment_maps_chart);
+        RelativeLayout chartContainer = (RelativeLayout) fragment.findViewById(R.id.fragment_maps_chart);
         GraphicalView chartView = MapGraph.getNewInstance(context, mapData);
         //chartContainer.addView(chartView);
         
-        TableLayout mapsTable = (TableLayout) context.findViewById(R.id.fragment_maps_table);
+        TableLayout table = (TableLayout) fragment.findViewById(R.id.fragment_maps_table);
         
         for (int i = 0; i < Data.MAPS.length; i++) {
         	String map = Data.MAPS[i];
@@ -77,7 +81,9 @@ public class MapsFragment implements Fragment
         	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
         	
-        	mapsTable.addView(tr);
+        	table.addView(tr);
         }
+        
+		((LinearLayout) context.findViewById(R.id.fragment_maps)).addView(fragment);
 	}
 }

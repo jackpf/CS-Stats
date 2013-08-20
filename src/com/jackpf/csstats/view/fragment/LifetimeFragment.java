@@ -1,8 +1,11 @@
 package com.jackpf.csstats.view.fragment;
 
 import android.app.Activity;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TableLayout;
@@ -27,23 +30,22 @@ public class LifetimeFragment implements Fragment
 	{
 		final LayoutInflater inflator = (LayoutInflater) context.getSystemService(MainActivity.LAYOUT_INFLATER_SERVICE);
 		
-		TableLayout fragment = (TableLayout) context.findViewById(R.id.fragment_lifetime);
+		View fragment = inflator.inflate(R.layout._fragment_lifetime, null);
+		
+		TableLayout table = (TableLayout) fragment.findViewById(R.id.fragment_lifetime_table);
         
         String[] stats	= {"bombsplanted", "bombsdefused", "hostagesrescued", "pistolrounds",
 						   "dmg", "dominations", "dominationoverkills", "revenges",
 						   "headshots", "zsniperkills", "blindkills", "enemywpnkills", "knifekills",
 						   "money", "decals", "nvgdmg", "winbroken", "wpndonated"},
-        		 keys	= {"Bombs planted", "Bombs defused", "Hostages rescued", "Pistol rounds",
-						   "Damage inflicted", "Dominations", "Overkills", "Revenges",
-						   "Headshots", "Sniper kills", "Blind kills", "Kills w/ enemy weapon", "Knife kills",
-						   "Money spent", "Sprays", "Nightvision damage", "Windows broken", "Weapons donated"},
         		 types	= {"int", "int", "int", "int",
 						   "int", "int", "int", "int",
 						   "int", "int", "int", "int", "int",
 						   "money", "int", "int", "int", "int"};
         
         for (int i = 0; i < stats.length; i++) {
-        	String stat = stats[i], key = keys[i], type = types[i];
+        	String stat = stats[i], type = types[i];
+        	String key = SummaryFragment.getKey(stat, context);
         	
         	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.lifetime." + stat), type);
         	
@@ -57,7 +59,9 @@ public class LifetimeFragment implements Fragment
         	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
         	
-        	fragment.addView(tr);
+        	table.addView(tr);
         }
+        
+		((LinearLayout) context.findViewById(R.id.fragment_lifetime)).addView(fragment);
 	}
 }

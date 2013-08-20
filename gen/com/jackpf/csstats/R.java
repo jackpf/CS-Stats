@@ -22,51 +22,96 @@ public final class R {
         public static final int image_border=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f080013;
-        public static final int avatar=0x7f080009;
-        public static final int col1=0x7f080006;
-        public static final int col2=0x7f080007;
-        public static final int col3=0x7f080008;
-        public static final int fragment_last_match=0x7f08000d;
-        public static final int fragment_lifetime=0x7f08000e;
-        public static final int fragment_maps=0x7f08000f;
-        public static final int fragment_maps_chart=0x7f080010;
-        public static final int fragment_maps_table=0x7f080011;
-        public static final int fragment_screenshots=0x7f080012;
-        public static final int fragment_summary=0x7f08000c;
-        public static final int key=0x7f080004;
-        public static final int map=0x7f080000;
-        public static final int rounds=0x7f080001;
-        public static final int steamId=0x7f08000a;
-        public static final int tabhost=0x7f08000b;
-        public static final int value=0x7f080005;
-        public static final int winpct=0x7f080003;
-        public static final int wins=0x7f080002;
+        public static final int action_settings=0x7f080017;
+        public static final int avatar=0x7f08000f;
+        public static final int col1=0x7f08000b;
+        public static final int col2=0x7f08000c;
+        public static final int col3=0x7f08000d;
+        public static final int fragment_last_match=0x7f080014;
+        public static final int fragment_last_match_table=0x7f080000;
+        public static final int fragment_lifetime=0x7f080015;
+        public static final int fragment_lifetime_table=0x7f080001;
+        public static final int fragment_maps=0x7f080016;
+        public static final int fragment_maps_chart=0x7f080002;
+        public static final int fragment_maps_table=0x7f080003;
+        public static final int fragment_summary=0x7f080013;
+        public static final int fragment_summary_table=0x7f080004;
+        public static final int key=0x7f080009;
+        public static final int map=0x7f080005;
+        public static final int rounds=0x7f080006;
+        public static final int steamId=0x7f080010;
+        public static final int steamId_login=0x7f08000e;
+        public static final int steamId_stats=0x7f080011;
+        public static final int tabhost=0x7f080012;
+        public static final int value=0x7f08000a;
+        public static final int winpct=0x7f080008;
+        public static final int wins=0x7f080007;
     }
     public static final class layout {
-        public static final int _table_row_map=0x7f030000;
-        public static final int _table_row_stat=0x7f030001;
-        public static final int _table_row_stat_triplet=0x7f030002;
-        public static final int activity_main=0x7f030003;
+        public static final int _fragment_last_match=0x7f030000;
+        public static final int _fragment_lifetime=0x7f030001;
+        public static final int _fragment_maps=0x7f030002;
+        public static final int _fragment_summary=0x7f030003;
+        public static final int _table_row_map=0x7f030004;
+        public static final int _table_row_stat=0x7f030005;
+        public static final int _table_row_stat_triplet=0x7f030006;
+        public static final int activity_login=0x7f030007;
+        public static final int activity_main=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f070000;
     }
     public static final class string {
+        public static final int acc=0x7f050026;
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int blindkills=0x7f050011;
+        public static final int bombsdefused=0x7f050008;
+        /**  Labels 
+         */
+        public static final int bombsplanted=0x7f050007;
+        public static final int costkill=0x7f050029;
+        public static final int ct_wins=0x7f05001a;
+        public static final int deaths=0x7f050023;
+        public static final int decals=0x7f050015;
+        public static final int dmg=0x7f05000b;
+        public static final int dominationoverkills=0x7f05000d;
+        public static final int dominations=0x7f05000c;
+        public static final int enemywpnkills=0x7f050012;
         /**  Errors 
          */
         public static final int error_not_viewable=0x7f050006;
-        /**  Labels 
-         */
-        public static final int label_hide_chart=0x7f050007;
+        public static final int favwpn=0x7f05001d;
+        public static final int headshots=0x7f05000f;
+        public static final int hits=0x7f05001f;
+        public static final int hostagesrescued=0x7f050009;
+        public static final int kdratio=0x7f050024;
+        public static final int key_not_found=0x7f05002b;
+        public static final int kills=0x7f050022;
+        public static final int knifekills=0x7f050013;
+        public static final int ksratio=0x7f050025;
+        public static final int max_players=0x7f050028;
+        public static final int money=0x7f050014;
+        public static final int nvgdmg=0x7f050016;
+        public static final int pistolrounds=0x7f05000a;
         public static final int rate_b1=0x7f050003;
         public static final int rate_b2=0x7f050004;
         public static final int rate_b3=0x7f050005;
         /**  Rate prompt values 
          */
         public static final int rate_prompt_text=0x7f050002;
+        public static final int revenges=0x7f05000e;
+        public static final int rounds=0x7f05002a;
+        public static final int shotpct=0x7f050021;
+        public static final int shots=0x7f05001e;
+        public static final int shotshit=0x7f050020;
+        public static final int stars=0x7f050027;
+        public static final int t_wins=0x7f050019;
+        public static final int winbroken=0x7f050017;
+        public static final int winpct=0x7f05001c;
+        public static final int wins=0x7f05001b;
+        public static final int wpndonated=0x7f050018;
+        public static final int zsniperkills=0x7f050010;
     }
     public static final class style {
         /** 
