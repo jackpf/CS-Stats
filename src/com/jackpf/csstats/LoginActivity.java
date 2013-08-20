@@ -25,6 +25,13 @@ public class LoginActivity extends Activity
     	super.onCreate(savedInstanceState);
     	
         setContentView(R.layout.activity_login);
+        
+        // Display any login errors sent from MainActivity
+        String error = getIntent().getStringExtra("error");
+        
+        if (error != null) {
+        	Lib.error(this, error);
+        }
     }
 	
 	public void login(View view)
@@ -44,7 +51,7 @@ public class LoginActivity extends Activity
 			Intent loginActivity = new Intent(this, MainActivity.class);
         	startActivity(loginActivity);
 		} catch(TransformException e) {
-			Lib.warning(this, "Invalid input");
+			Lib.error(this, "Invalid input");
 		}
 	}
 }

@@ -30,26 +30,15 @@ public class Lib
 	public static void error(Activity context, String message)
 	{
 		Lib.showMessage(context, "Error", message);
-		
-		//context.finish(); //hacked in showMessage
-	}
-	
-	// Shows an error but doesn't finish the activity
-	public static void warning(Activity context, String message)
-	{
-		Lib.showMessage(context, "Warning", message);
 	}
 	
 	public static void showMessage(Activity context, String title, String message)
 	{
 		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 		
-		//hack
-		final Activity _context = (title.equals("Error")) ? context : null;
-		
 		dialog.setMessage(message)
 	    .setCancelable(false)
-	    .setPositiveButton("OK", new DialogInterface.OnClickListener(){public void onClick(DialogInterface dialog, int id){dialog.cancel(); /*hack*/ if(_context != null) _context.finish();}});
+	    .setPositiveButton("OK", new DialogInterface.OnClickListener(){public void onClick(DialogInterface dialog, int id){dialog.cancel();}});
 		AlertDialog alert = dialog.create();
 		alert.setTitle(title);
 	    alert.setIcon(R.drawable.ic_launcher);

@@ -6,14 +6,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
@@ -21,6 +19,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.jackpf.csstats.LoginActivity;
 import com.jackpf.csstats.MainActivity;
 import com.jackpf.csstats.R;
 import com.jackpf.csstats.Steam.SteamStats;
@@ -59,21 +58,15 @@ public class UI
 		
 		context.setContentView(R.layout.activity_main);
 		
-		String error;
-		if ((error = stats.get("error")) != null) {
-			Lib.warning(
-				context,
-				error
-			);
-			
-			return;
-		}
+		String error = stats.get("error");
+		if (error == null && Integer.parseInt(stats.get("visibilityState")) != SteamStats.VIEWABLE)
+			error = context.getString(R.string.error_not_viewable);
 		
-		if (Integer.parseInt(stats.get("visibilityState")) != SteamStats.VIEWABLE) {
-			Lib.warning(
-				context,
-				context.getString(R.string.error_not_viewable)
-			);
+		if (error != null) {
+			Intent loginActivity = new Intent(context, LoginActivity.class);
+			loginActivity.putExtra("error", error);
+			
+			context.startActivity(loginActivity);
 			
 			return;
 		}
@@ -133,7 +126,7 @@ public class UI
 	{
 		e.printStackTrace();
 		
-		Lib.warning(MainActivity.getInstance(), e.getMessage());
+		Lib.error(MainActivity.getInstance(), e.getMessage());
 	}
 	
 	/**
