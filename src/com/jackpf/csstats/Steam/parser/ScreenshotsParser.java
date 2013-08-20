@@ -42,18 +42,18 @@ public class ScreenshotsParser implements Parser
      */
     public Parser parse() throws Exception
     {
-    	BufferedReader br = new BufferedReader(new InputStreamReader(is));
-    	
-    	String line;
-    	String pattern = "<img src=\\\"(http://cloud.*?\\.resizedimage)\\\"";
-    	Pattern p = Pattern.compile(pattern);
-    	while ((line = br.readLine()) != null) {
-        	Matcher m = p.matcher(line);
-        	
-        	if (m.find()) {
-        		screenshots.add(m.group(1));
-        	}
-    	}
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        
+        String line;
+        String pattern = "<img src=\\\"(http://cloud.*?\\.resizedimage)\\\"";
+        Pattern p = Pattern.compile(pattern);
+        while ((line = br.readLine()) != null) {
+            Matcher m = p.matcher(line);
+            
+            if (m.find()) {
+                screenshots.add(m.group(1));
+            }
+        }
 
         return this;
     }
@@ -66,12 +66,12 @@ public class ScreenshotsParser implements Parser
      */
     public String getValue(String key)
     {
-    	int iKey = Integer.parseInt(key);
-    	
-    	if (iKey >= screenshots.size()) {
-    		return null;
-    	}
-    	
+        int iKey = Integer.parseInt(key);
+        
+        if (iKey >= screenshots.size()) {
+            return null;
+        }
+        
         return screenshots.get(iKey);
     }
 }

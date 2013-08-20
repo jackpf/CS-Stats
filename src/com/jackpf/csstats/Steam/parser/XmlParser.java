@@ -49,10 +49,10 @@ public class XmlParser implements Parser
      */
     public Parser parse() throws Exception
     {
-    	DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		Document document = db.parse(is);
-		
-		root = document.getDocumentElement();
+        DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document document = db.parse(is);
+        
+        root = document.getDocumentElement();
 
         return this;
     }
@@ -79,34 +79,34 @@ public class XmlParser implements Parser
      */
     private String getValue(Node node, String key)
     {
-    	String[] keys = key.split("\\.");
-    	NodeList stats = node.getChildNodes();
-		
-		for (int i = 0; i < stats.getLength(); i++) {
-			if (stats.item(i).getNodeType() != Node.ELEMENT_NODE) { 
-				continue;
-			}
-			
-			Element stat = (Element) stats.item(i);
+        String[] keys = key.split("\\.");
+        NodeList stats = node.getChildNodes();
+        
+        for (int i = 0; i < stats.getLength(); i++) {
+            if (stats.item(i).getNodeType() != Node.ELEMENT_NODE) { 
+                continue;
+            }
+            
+            Element stat = (Element) stats.item(i);
 
-			if (stat.getNodeName().equals(keys[0])) {
-				if (stat.getChildNodes().getLength() > 1) {
-					// Reform key
-					String _key = "";
-					for (int j = 1; j < keys.length; j++) {
-						_key += keys[j];
-						if (j != keys.length) {
-							_key += ".";
-						}
-					}
-					
-					return getValue(stat, _key);
-				} else {
-					return stat.getTextContent();
-				}
-			}
-		}
-		
-		return null;
+            if (stat.getNodeName().equals(keys[0])) {
+                if (stat.getChildNodes().getLength() > 1) {
+                    // Reform key
+                    String _key = "";
+                    for (int j = 1; j < keys.length; j++) {
+                        _key += keys[j];
+                        if (j != keys.length) {
+                            _key += ".";
+                        }
+                    }
+                    
+                    return getValue(stat, _key);
+                } else {
+                    return stat.getTextContent();
+                }
+            }
+        }
+        
+        return null;
     }
 }

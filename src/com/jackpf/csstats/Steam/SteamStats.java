@@ -22,7 +22,7 @@ public class SteamStats
     /**
      * URL of counter strike stats xml file
      */
-	public final static String PROFILE_URL = "http://steamcommunity.com/{type}/{id}?xml=1";
+    public final static String PROFILE_URL = "http://steamcommunity.com/{type}/{id}?xml=1";
     public final static String SCREENSHOTS_URL = "http://steamcommunity.com/{type}/{id}/screenshots?appid=" + Data.APP_ID + "&sort=newestfirst&browsefilter=myfiles&view=imagewall";
     public final static String CSSTATS_URL = "http://steamcommunity.com/{type}/{id}/stats/CS:S?xml=1";
 
@@ -70,9 +70,9 @@ public class SteamStats
      */
     public SteamStats request() throws Exception
     {
-    	HttpParams params = new BasicHttpParams();
-    	HttpConnectionParams.setConnectionTimeout(params, 10000);
-    	DefaultHttpClient client = new DefaultHttpClient(params);
+        HttpParams params = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(params, 10000);
+        DefaultHttpClient client = new DefaultHttpClient(params);
 
         HttpGet request = new HttpGet(replaceVars(url, new String[] {"type", "id"}, new String[] {user.getType(), user.getId()}));
 
@@ -94,9 +94,9 @@ public class SteamStats
      */
     public SteamStats parse(Parser parser) throws Exception
     {
-    	this.parser = parser;
-    	
-    	parser.setContent(response);
+        this.parser = parser;
+        
+        parser.setContent(response);
         parser.parse();
         
         return this;
@@ -110,7 +110,7 @@ public class SteamStats
      */
     public String get(String key)
     {
-    	return parser.getValue(key);
+        return parser.getValue(key);
     }
 
     /**
@@ -137,10 +137,10 @@ public class SteamStats
      */
     private String replaceVars(String string, String[] name, String[] value)
     {
-    	for (int i = 0; i < name.length; i++) {
-    		string = replaceVar(string, name[i], value[i]);
-    	}
-    	
-    	return string;
+        for (int i = 0; i < name.length; i++) {
+            string = replaceVar(string, name[i], value[i]);
+        }
+        
+        return string;
     }
 }

@@ -8,6 +8,6 @@ import com.jackpf.csstats.view.UI;
 
 public interface Fragment
 {
-	public TabSpec getSpec(TabHost tabHost);
-	public void setup(UI ui, Activity context);
+    public TabSpec getSpec(TabHost tabHost);
+    public void setup(UI ui, Activity context);
 }

@@ -11,13 +11,13 @@ import com.jackpf.csstats.Steam.SteamUser;
 
 public class MainActivity extends Activity
 {
-	private static MainActivity instance;
-	
+    private static MainActivity instance;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-    	instance = this;
-    	
+        instance = this;
+        
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_main_loading);
@@ -26,17 +26,17 @@ public class MainActivity extends Activity
         SharedPreferences prefs = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         
         String id = prefs.getString(LoginActivity.KEY_ID, null),
-        	   type = prefs.getString(LoginActivity.KEY_TYPE, null);
+               type = prefs.getString(LoginActivity.KEY_TYPE, null);
         
         if (type == null || id == null) {
-        	Intent loginActivity = new Intent(this, LoginActivity.class);
-        	loginActivity.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        	
-        	startActivity(loginActivity);
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            loginActivity.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            
+            startActivity(loginActivity);
         } else {
-        	SteamUser user = new SteamUser(id, type);
-        	
-        	new NetworkThread().execute(user);
+            SteamUser user = new SteamUser(id, type);
+            
+            new NetworkThread().execute(user);
         }
     }
 
@@ -53,9 +53,9 @@ public class MainActivity extends Activity
     {
         switch (item.getItemId())
         {
-        	case R.id.menu_login:
-        		startActivity(new Intent(this, LoginActivity.class));
-        	break;
+            case R.id.menu_login:
+                startActivity(new Intent(this, LoginActivity.class));
+            break;
         }
         
         return super.onOptionsItemSelected(item);
@@ -63,6 +63,6 @@ public class MainActivity extends Activity
     
     public static MainActivity getInstance()
     {
-    	return instance;
+        return instance;
     }
 }

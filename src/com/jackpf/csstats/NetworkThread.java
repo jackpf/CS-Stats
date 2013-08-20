@@ -9,18 +9,18 @@ import com.jackpf.csstats.view.UI;
 
 public class NetworkThread extends AsyncTask<SteamUser, Void, Void>
 {
-	SteamStats profile, stats;
-	
-	Exception e = null;
-	
-	@Override
+    SteamStats profile, stats;
+    
+    Exception e = null;
+    
+    @Override
     protected Void doInBackground(SteamUser... params)
     {
-		SteamUser user = params[0];
-		
-    	try {
-        	profile = user.getProfile();
-        	stats = user.getStats();
+        SteamUser user = params[0];
+        
+        try {
+            profile = user.getProfile();
+            stats = user.getStats();
         } catch(Exception e) {
             this.e = e;
         }
@@ -28,16 +28,16 @@ public class NetworkThread extends AsyncTask<SteamUser, Void, Void>
         return null;
     }
     
-	@Override
+    @Override
     protected void onPostExecute(Void _void)
-	{
-		UI ui = new UI();
-		
-		if (e == null) {
-			ui.update(profile,
-				stats);
-		} else {
-			ui.error(e);
-		}
-	}
+    {
+        UI ui = new UI();
+        
+        if (e == null) {
+            ui.update(profile,
+                stats);
+        } else {
+            ui.error(e);
+        }
+    }
 }

@@ -24,56 +24,56 @@ import android.widget.TextView;
 
 public class Lib
 {
-	public static final String paypalUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CAK7V3N3YTURY";
+    public static final String paypalUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CAK7V3N3YTURY";
 
-	//shows an error message popup
-	public static void error(Activity context, String message)
-	{
-		Lib.showMessage(context, "Error", message);
-	}
-	
-	public static void showMessage(Activity context, String title, String message)
-	{
-		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-		
-		dialog.setMessage(message)
-	    .setCancelable(false)
-	    .setPositiveButton("OK", new DialogInterface.OnClickListener(){public void onClick(DialogInterface dialog, int id){dialog.cancel();}});
-		AlertDialog alert = dialog.create();
-		alert.setTitle(title);
-	    //alert.setIcon(R.drawable.ic_launcher);
-	    alert.show();
-	}
-	
-	//return valid filename from asset
-	public static String getFilename(String asset)
-	{
-		return asset.split("/")[1].split("\\.")[0].replaceAll("-", "");
-	}
-	
-	private final static int LAUNCHES_UNTIL_PROMPT = 5;
-	
-	public static String getApplicationName(Context context)
-	{
-		PackageManager packageManager = context.getApplicationContext().getPackageManager();
-		ApplicationInfo applicationInfo;
-		
-		try
-		{
-			applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
-		}
-		catch(final NameNotFoundException e)
-		{
-			applicationInfo = null;
-		}
-		
-		return (String) (applicationInfo != null ? packageManager.getApplicationLabel(applicationInfo) : "unknown");
-	}
-	
-	public static void ratePrompt(Context context, SharedPreferences preferences)
-	{
+    //shows an error message popup
+    public static void error(Activity context, String message)
+    {
+        Lib.showMessage(context, "Error", message);
+    }
+    
+    public static void showMessage(Activity context, String title, String message)
+    {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        
+        dialog.setMessage(message)
+        .setCancelable(false)
+        .setPositiveButton("OK", new DialogInterface.OnClickListener(){public void onClick(DialogInterface dialog, int id){dialog.cancel();}});
+        AlertDialog alert = dialog.create();
+        alert.setTitle(title);
+        //alert.setIcon(R.drawable.ic_launcher);
+        alert.show();
+    }
+    
+    //return valid filename from asset
+    public static String getFilename(String asset)
+    {
+        return asset.split("/")[1].split("\\.")[0].replaceAll("-", "");
+    }
+    
+    private final static int LAUNCHES_UNTIL_PROMPT = 5;
+    
+    public static String getApplicationName(Context context)
+    {
+        PackageManager packageManager = context.getApplicationContext().getPackageManager();
+        ApplicationInfo applicationInfo;
+        
+        try
+        {
+            applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
+        }
+        catch(final NameNotFoundException e)
+        {
+            applicationInfo = null;
+        }
+        
+        return (String) (applicationInfo != null ? packageManager.getApplicationLabel(applicationInfo) : "unknown");
+    }
+    
+    public static void ratePrompt(Context context, SharedPreferences preferences)
+    {
         if(preferences.getBoolean("rate_dontshowagain", false))
-        	return;
+            return;
         
         SharedPreferences.Editor preferencesEditor = preferences.edit();
         
@@ -87,10 +87,10 @@ public class Lib
         
         preferencesEditor.apply();
     }
-	
-	public static void showRateDialog(final Context context, final SharedPreferences.Editor preferencesEditor)
-	{
-		final Dialog dialog = new Dialog(context);
+    
+    public static void showRateDialog(final Context context, final SharedPreferences.Editor preferencesEditor)
+    {
+        final Dialog dialog = new Dialog(context);
         dialog.setTitle("Rate " + getApplicationName(context));
 
         LinearLayout dialogLayout = new LinearLayout(context);
@@ -105,18 +105,18 @@ public class Lib
         Button b1 = new Button(context);
         b1.setText(context.getString(R.string.rate_b1));
         b1.setOnClickListener(
-	        new OnClickListener()
-	        {
-	            public void onClick(View v)
-	            {
-	            	preferencesEditor.putBoolean("rate_dontshowagain", true);
-	            	preferencesEditor.apply();
-	            	
-	                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));
-	               
-	                dialog.dismiss();
-	            }
-	        }
+            new OnClickListener()
+            {
+                public void onClick(View v)
+                {
+                    preferencesEditor.putBoolean("rate_dontshowagain", true);
+                    preferencesEditor.apply();
+                    
+                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + context.getPackageName())));
+                   
+                    dialog.dismiss();
+                }
+            }
         );        
         dialogLayout.addView(b1);
 
@@ -126,8 +126,8 @@ public class Lib
         {
             public void onClick(View v)
             {
-            	preferencesEditor.putLong("rate_launchcount", 0);
-            	preferencesEditor.apply();
+                preferencesEditor.putLong("rate_launchcount", 0);
+                preferencesEditor.apply();
                 
                 dialog.dismiss();
             }
@@ -141,8 +141,8 @@ public class Lib
         {
             public void onClick(View v)
             {
-            	preferencesEditor.putBoolean("rate_dontshowagain", true);
-            	preferencesEditor.apply();
+                preferencesEditor.putBoolean("rate_dontshowagain", true);
+                preferencesEditor.apply();
                 
                 dialog.dismiss();
             }
