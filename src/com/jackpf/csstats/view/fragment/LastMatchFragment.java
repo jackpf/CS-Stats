@@ -53,9 +53,12 @@ public class LastMatchFragment implements Fragment
 	        	String key = SummaryFragment.getKey(stat, context);
 	        	
 	        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.lastmatch." + stat), type);
-	        	//TODO: Put in values
-	        	String html = "<small>" + key + "</small><br /><strong>" + value + "</strong>";
-
+	        	String html = String.format(
+	        		context.getString(R.string.stat_format),
+	        		key,
+	        		value
+	        	);
+	        	
 	        	int tv = context.getResources().getIdentifier("col" + j , "id", context.getPackageName());
 	        	
 	        	((TextView) tr.findViewById(tv)).setText(Html.fromHtml(html));

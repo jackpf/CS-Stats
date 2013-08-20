@@ -11,7 +11,7 @@
 	<string name="rate_b3">No thanks</string>
 	
 	<!-- Errors -->
-	<string name="error_not_viewable">This profile is private or friends only</string>
+	<string name="error_not_viewable">This profile is not viewable. Please make sure you\'ve set the visibility to public.</string>
 
 	<!-- Labels -->
 	<string name="bombsplanted">Bombs planted</string>
@@ -52,6 +52,34 @@
 	<string name="rounds">Rounds</string>
 	<string name="key_not_found">*key not found*</string>
 	
+	<string name="deagle">Deagle</string>
+	<string name="usp">USP</string>
+	<string name="glock">Glock</string>
+	<string name="p228">P228</string>
+	<string name="elite">Elite</string>
+	<string name="fiveseven">Fiveseven</string>
+	<string name="awp">AWP</string>
+	<string name="ak47">AK-47</string>
+	<string name="m4a1">M4A1</string>
+	<string name="aug">AUG</string>
+	<string name="sg552">SG552</string>
+	<string name="sg550">SG550</string>
+	<string name="galil">Galil</string>
+	<string name="famas">Famas</string>
+	<string name="scout">Scout</string>
+	<string name="g3sg1">G3SG1</string>
+	<string name="p90">P90</string>
+	<string name="mp5navy">MP5</string>
+	<string name="tmp">TMP</string>
+	<string name="mac10">MAC10</string>
+	<string name="ump45">UMP45</string>
+	<string name="m3">M3</string>
+	<string name="xm1014">XM1014</string>
+	<string name="m249">M249</string>
+	<string name="knife">Knife</string>
+	<string name="grenade">Grenade</string>
+	
+	<string name="stat_format" formatted="false"><Data><![CDATA[ <small>%s</small><br /><strong>%s</strong> ]]> </Data></string>
 	<string name="steamId_stats_format" formatted="false"><Data><![CDATA[ <small>Total playtime: %s<br />Past 2 weeks: %s</small> ]]> </Data></string>
 	
 </resources>

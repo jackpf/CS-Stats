@@ -41,7 +41,7 @@ public class Lib
 	    .setPositiveButton("OK", new DialogInterface.OnClickListener(){public void onClick(DialogInterface dialog, int id){dialog.cancel();}});
 		AlertDialog alert = dialog.create();
 		alert.setTitle(title);
-	    alert.setIcon(R.drawable.ic_launcher);
+	    //alert.setIcon(R.drawable.ic_launcher);
 	    alert.show();
 	}
 	

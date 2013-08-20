@@ -28,6 +28,7 @@ import com.jackpf.csstats.view.fragment.LastMatchFragment;
 import com.jackpf.csstats.view.fragment.LifetimeFragment;
 import com.jackpf.csstats.view.fragment.MapsFragment;
 import com.jackpf.csstats.view.fragment.SummaryFragment;
+import com.jackpf.csstats.view.fragment.WeaponsFragment;
 import com.jackpf.csstats.view.model.Fragment;
 
 public class UI
@@ -56,20 +57,12 @@ public class UI
 		
 		final Activity context = MainActivity.getInstance();
 		
-		context.setContentView(R.layout.activity_main);
-		
-		String error = stats.get("error");
-		if (error == null && Integer.parseInt(stats.get("visibilityState")) != SteamStats.VIEWABLE)
-			error = context.getString(R.string.error_not_viewable);
-		
-		if (error != null) {
-			Intent loginActivity = new Intent(context, LoginActivity.class);
-			loginActivity.putExtra("error", error);
-			
-			context.startActivity(loginActivity);
-			
-			return;
+		// TODO: Better error checking
+		if (stats.get("error") != null || Integer.parseInt(profile.get("visibilityState")) != SteamStats.VIEWABLE) {
+			error(new Exception(context.getString(R.string.error_not_viewable)));
 		}
+		
+		context.setContentView(R.layout.activity_main);
 		
 		// Set avatar
 		new ImageLoader(
@@ -106,6 +99,7 @@ public class UI
 			new LastMatchFragment(),
 			new LifetimeFragment(),
 			new MapsFragment(),
+			new WeaponsFragment(),
 		};
 		
 		for (Fragment fragment : fragments) {
@@ -119,6 +113,7 @@ public class UI
 	
 	/**
 	 * Render errors thrown by backend
+	 * TODO: Better error checking
 	 * 
 	 * @param e
 	 */
@@ -126,7 +121,10 @@ public class UI
 	{
 		e.printStackTrace();
 		
-		Lib.error(MainActivity.getInstance(), e.getMessage());
+		Intent loginActivity = new Intent(MainActivity.getInstance(), LoginActivity.class);
+		loginActivity.putExtra("error", MainActivity.getInstance().getString(R.string.error_not_viewable));
+		
+		MainActivity.getInstance().startActivity(loginActivity);
 	}
 	
 	/**

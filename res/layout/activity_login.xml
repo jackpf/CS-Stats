@@ -13,7 +13,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please enter your steam profile url or STEAM_ID" />
+        android:text="Please enter your steam profile url or STEAM_ID"
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/steamId_login"

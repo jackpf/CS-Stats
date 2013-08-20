@@ -4,7 +4,7 @@ public class Data
 {
 	public final static int APP_ID = 240;
 	
-	public final static String[] MAPS = {
+	public static final String[] MAPS = {
 		"cs_assault",
 		"cs_compound",
 		"cs_havana",
@@ -23,5 +23,34 @@ public class Data
 		"de_prodigy",
 		"de_tides",
 		"de_train",
+	};
+	
+	public static final String[] WEAPONS = {
+		"deagle",
+		"usp",
+		"glock",
+		"p228",
+		"elite",
+		"fiveseven",
+		"awp",
+		"ak47",
+		"m4a1",
+		"aug",
+		"sg552",
+		"sg550",
+		"galil",
+		"famas",
+		"scout",
+		"g3sg1",
+		"p90",
+		"mp5navy",
+		"tmp",
+		"mac10",
+		"ump45",
+		"m3",
+		"xm1014",
+		"m249",
+		"knife",
+		"grenade"
 	};
 }

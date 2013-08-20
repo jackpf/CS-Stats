@@ -51,8 +51,11 @@ public class SummaryFragment implements Fragment
 	        	String key = SummaryFragment.getKey(stat, context);
 	        	
 	        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.summary." + stat), type);
-	        	//TODO: Put in values
-	        	String html = "<small>" + key + "</small><br /><strong>" + value + "</strong>";
+	        	String html = String.format(
+	        		context.getString(R.string.stat_format),
+	        		key,
+	        		value
+	        	);
 	        	
 	        	int tv = context.getResources().getIdentifier("col" + j , "id", context.getPackageName());
 	        	
@@ -81,10 +84,10 @@ public class SummaryFragment implements Fragment
 	 */
 	public static String parseValue(String value, String type)
 	{
-		if (type.equals("null") || value.equals("")) {
+		if (value == null) {
+			return "~";
+		} else if (type.equals("null") || value.equals("")) {
 			return "";
-		} else if (value == null) {
-			return null;
 		}
 		
 		// Do some rounding for ints to make sure they're ints
