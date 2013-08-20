@@ -19,7 +19,9 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 
         if (true) {
-        	startActivity(new Intent(this, LoginActivity.class));
+        	Intent loginActivity = new Intent(this, LoginActivity.class);
+        	loginActivity.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        	startActivity(loginActivity);
         } else {
         	new NetworkThread().execute("jcak");
         }

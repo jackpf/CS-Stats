@@ -25,13 +25,19 @@ import android.widget.TextView;
 public class Lib
 {
 	public static final String paypalUrl = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CAK7V3N3YTURY";
-	
+
 	//shows an error message popup
 	public static void error(Activity context, String message)
 	{
 		Lib.showMessage(context, "Error", message);
 		
 		//context.finish(); //hacked in showMessage
+	}
+	
+	// Shows an error but doesn't finish the activity
+	public static void warning(Activity context, String message)
+	{
+		Lib.showMessage(context, "Warning", message);
 	}
 	
 	public static void showMessage(Activity context, String title, String message)
