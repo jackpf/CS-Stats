@@ -7,7 +7,9 @@ import java.net.URLEncoder;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.w3c.dom.Element;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import com.jackpf.csstats.Steam.model.Parser;
 
@@ -20,9 +22,9 @@ public class SteamStats
     /**
      * URL of counter strike stats xml file
      */
-	public final static String PROFILE_URL = "http://steamcommunity.com/id/{id}?xml=1";
-    public final static String SCREENSHOTS_URL = "http://steamcommunity.com/id/{id}/screenshots?appid=" + Data.APP_ID + "&sort=newestfirst&browsefilter=myfiles&view=imagewall";
-    public final static String CSSTATS_URL = "http://steamcommunity.com/id/{id}/stats/CS:S?xml=1";
+	public final static String PROFILE_URL = "http://steamcommunity.com/{type}/{id}?xml=1";
+    public final static String SCREENSHOTS_URL = "http://steamcommunity.com/{type}/{id}/screenshots?appid=" + Data.APP_ID + "&sort=newestfirst&browsefilter=myfiles&view=imagewall";
+    public final static String CSSTATS_URL = "http://steamcommunity.com/{type}/{id}/stats/CS:S?xml=1";
 
     /**
      * Some useful constants
@@ -68,9 +70,11 @@ public class SteamStats
      */
     public SteamStats request() throws Exception
     {
-    	DefaultHttpClient client = new DefaultHttpClient();
+    	HttpParams params = new BasicHttpParams();
+    	HttpConnectionParams.setConnectionTimeout(params, 10000);
+    	DefaultHttpClient client = new DefaultHttpClient(params);
 
-        HttpGet request = new HttpGet(replaceVar(url, "id", user.getSteamId()));
+        HttpGet request = new HttpGet(replaceVars(url, new String[] {"type", "id"}, new String[] {user.getType(), user.getId()}));
 
         HttpResponse response = client.execute(request);
 
@@ -110,7 +114,7 @@ public class SteamStats
     }
 
     /**
-     * Replace url vars
+     * Replace url var
      *
      * @param string
      * @param name
@@ -120,5 +124,23 @@ public class SteamStats
     private String replaceVar(String string, String name, String value)
     {
         return string.replaceAll("\\{" + name + "\\}", URLEncoder.encode(value));
+    }
+    
+    /**
+     * Replace url vars
+     * Accepts arrays
+     * 
+     * @param string
+     * @param name
+     * @param value
+     * @return
+     */
+    private String replaceVars(String string, String[] name, String[] value)
+    {
+    	for (int i = 0; i < name.length; i++) {
+    		string = replaceVar(string, name[i], value[i]);
+    	}
+    	
+    	return string;
     }
 }

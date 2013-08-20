@@ -7,18 +7,18 @@ import com.jackpf.csstats.Steam.SteamUser;
 import com.jackpf.csstats.Steam.parser.ScreenshotsParser;
 import com.jackpf.csstats.view.UI;
 
-public class NetworkThread extends AsyncTask<String, Void, Void>
+public class NetworkThread extends AsyncTask<SteamUser, Void, Void>
 {
 	SteamStats profile, stats;
 	
 	Exception e = null;
 	
 	@Override
-    protected Void doInBackground(String... params)
+    protected Void doInBackground(SteamUser... params)
     {
-    	SteamUser user = new SteamUser(params[0]);
-    	
-        try {
+		SteamUser user = params[0];
+		
+    	try {
         	profile = user.getProfile();
         	stats = user.getStats();
         } catch(Exception e) {

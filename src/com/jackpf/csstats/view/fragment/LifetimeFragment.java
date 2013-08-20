@@ -3,6 +3,7 @@ package com.jackpf.csstats.view.fragment;
 import android.app.Activity;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,30 +35,37 @@ public class LifetimeFragment implements Fragment
 		
 		TableLayout table = (TableLayout) fragment.findViewById(R.id.fragment_lifetime_table);
         
-        String[] stats	= {"bombsplanted", "bombsdefused", "hostagesrescued", "pistolrounds",
-						   "dmg", "dominations", "dominationoverkills", "revenges",
-						   "headshots", "zsniperkills", "blindkills", "enemywpnkills", "knifekills",
-						   "money", "decals", "nvgdmg", "winbroken", "wpndonated"},
-        		 types	= {"int", "int", "int", "int",
-						   "int", "int", "int", "int",
-						   "int", "int", "int", "int", "int",
-						   "money", "int", "int", "int", "int"};
+        String[] stats	= {"headshots", "zsniperkills", "blindkills",
+						   "enemywpnkills", "knifekills", "",
+						   "dominations", "dominationoverkills", "revenges",
+						   "bombsplanted", "bombsdefused", "hostagesrescued",
+						   "dmg", "money", "decals"},
+        		 types	= {"int", "int", "int",
+						   "int", "int", "null",
+						   "int", "int", "int",
+						   "int", "int", "int",
+						   "int", "money", "int"};
         
-        for (int i = 0; i < stats.length; i++) {
-        	String stat = stats[i], type = types[i];
-        	String key = SummaryFragment.getKey(stat, context);
+        for (int i = 0, k = 0; i < stats.length; k++) {
+        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat_triplet, null);
         	
-        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.lifetime." + stat), type);
+        	for (int j = 1; i < stats.length && j <= 3; j++, i++) {
+	        	String stat = stats[i], type = types[i];
+	        	String key = SummaryFragment.getKey(stat, context);
+	        	
+	        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.lifetime." + stat), type);
+	        	//TODO: Put in values
+	        	String html = "<small>" + key + "</small><br /><strong>" + value + "</strong>";
+	        	
+	        	int tv = context.getResources().getIdentifier("col" + j , "id", context.getPackageName());
+	        	
+	        	((TextView) tr.findViewById(tv)).setText(Html.fromHtml(html));
+        	}
         	
-        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat, null);
-        	
-        	((TextView) tr.findViewById(R.id.key)).setText(key);
-        	((TextView) tr.findViewById(R.id.value)).setText(value);
-        	
-        	if (i % 2 == 1)
-        		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
-        	else
+        	if (k % 2 == 1)
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
+        	else
+        		tr.setBackgroundColor(Color.argb(50, 129, 179, 215));
         	
         	table.addView(tr);
         }

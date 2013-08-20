@@ -11,6 +11,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
@@ -26,7 +29,6 @@ import com.jackpf.csstats.view.fragment.LastMatchFragment;
 import com.jackpf.csstats.view.fragment.LifetimeFragment;
 import com.jackpf.csstats.view.fragment.MapsFragment;
 import com.jackpf.csstats.view.fragment.SummaryFragment;
-import com.jackpf.csstats.view.fragment.WeaponsFragment;
 import com.jackpf.csstats.view.model.Fragment;
 
 public class UI
@@ -53,13 +55,27 @@ public class UI
 		this.stats.put("profile", profile);
 		this.stats.put("stats", stats);
 		
-		Activity context = MainActivity.getInstance();
+		final Activity context = MainActivity.getInstance();
+		
+		context.setContentView(R.layout.activity_main);
+		
+		String error;
+		if ((error = stats.get("error")) != null) {
+			Lib.warning(
+				context,
+				error
+			);
+			
+			return;
+		}
 		
 		if (Integer.parseInt(stats.get("visibilityState")) != SteamStats.VIEWABLE) {
-			Lib.error(
+			Lib.warning(
 				context,
 				context.getString(R.string.error_not_viewable)
 			);
+			
+			return;
 		}
 		
 		// Set avatar
@@ -80,7 +96,7 @@ public class UI
 		((TextView) context.findViewById(R.id.steamId_stats)).setText(
 			Html.fromHtml(
 				String.format(
-					"Total playtime: %s<br />Past 2 weeks: %s",
+					context.getString(R.string.steamId_stats_format),
 					stats.get("stats.summary.timeplayedfmt"),
 					stats.get("stats.hoursPlayed")
 				)
@@ -117,7 +133,7 @@ public class UI
 	{
 		e.printStackTrace();
 		
-		Lib.error(MainActivity.getInstance(), e.getMessage());
+		Lib.warning(MainActivity.getInstance(), e.getMessage());
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package com.jackpf.csstats.view.fragment;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TabHost;
@@ -34,33 +35,36 @@ public class LastMatchFragment implements Fragment
 		TableLayout table = (TableLayout) fragment.findViewById(R.id.fragment_last_match_table);
         
         String[] stats	= {"t_wins", "ct_wins", "wins",
-			        	   "favwpn", "shots", "hits", "dmg",
-			        	   "kills", "deaths", "kdratio", "ksratio",
-						   "acc", "stars", "max_players",
-						   "money", "costkill",
-						   "dominations", "revenges"},
+			        	   "shots", "hits", "acc",
+			        	   "kills", "deaths", "kdratio",
+						   "stars", "revenges", "dominations",
+						   "dmg", "money", "costkill"},
         		 types	= {"int", "int", "int",
-			        	   "string", "int", "int", "int",
-			        	   "int", "int", "float", "float",
+			        	   "int", "int", "pct",
+			        	   "int", "int", "float",
 						   "int", "int", "int",
-						   "money", "money",
-						   "int", "int"};
+						   "int", "money", "money"};
         
-        for (int i = 0; i < stats.length; i++) {
-        	String stat = stats[i], type = types[i];
-        	String key = SummaryFragment.getKey(stat, context);
+        for (int i = 0, k = 0; i < stats.length; k++) {
+        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat_triplet, null);
         	
-        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.lastmatch." + stat), type);
-        	
-        	TableRow tr = (TableRow) inflator.inflate(R.layout._table_row_stat, null);
-        	
-        	((TextView) tr.findViewById(R.id.key)).setText(key);
-        	((TextView) tr.findViewById(R.id.value)).setText(value);
+        	for (int j = 1; i < stats.length && j <= 3; j++, i++) {
+	        	String stat = stats[i], type = types[i];
+	        	String key = SummaryFragment.getKey(stat, context);
+	        	
+	        	String value = SummaryFragment.parseValue(ui.get("stats").get("stats.lastmatch." + stat), type);
+	        	//TODO: Put in values
+	        	String html = "<small>" + key + "</small><br /><strong>" + value + "</strong>";
+
+	        	int tv = context.getResources().getIdentifier("col" + j , "id", context.getPackageName());
+	        	
+	        	((TextView) tr.findViewById(tv)).setText(Html.fromHtml(html));
+        	}
         	
         	if (i % 2 == 1)
-        		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
-        	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
+        	else
+        		tr.setBackgroundColor(Color.argb(50, 129, 179, 215));
         	
         	table.addView(tr);
         }

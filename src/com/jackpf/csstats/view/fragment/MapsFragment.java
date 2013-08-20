@@ -44,8 +44,8 @@ public class MapsFragment implements Fragment
         	mapData.put(map, Integer.valueOf(ui.get("stats").get("stats.maps." + map + "_rounds")));
         }
         
-        RelativeLayout chartContainer = (RelativeLayout) fragment.findViewById(R.id.fragment_maps_chart);
-        GraphicalView chartView = MapGraph.getNewInstance(context, mapData);
+        //LinearLayout chartContainer = (LinearLayout) fragment.findViewById(R.id.fragment_maps_chart);
+        //GraphicalView chartView = MapGraph.getNewInstance(context, mapData);
         //chartContainer.addView(chartView);
         
         TableLayout table = (TableLayout) fragment.findViewById(R.id.fragment_maps_table);
@@ -77,9 +77,9 @@ public class MapsFragment implements Fragment
         	}
         	
         	if (i % 2 == 1)
-        		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
-        	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
+        	else
+        		tr.setBackgroundColor(Color.argb(50, 129, 179, 215));
         	
         	table.addView(tr);
         }

@@ -8,63 +8,46 @@ import com.jackpf.csstats.Steam.parser.XmlParser;
 public class SteamUser
 {
     /**
-     * Steam ID of user
+     * ID of user
+     * Can be either a profile id or custom url depending on type
      */
-    private String steamId;
-
+    private String id;
+    
     /**
-     * Profile ID of user
+     * Url type
+     * Can be either "profiles" or "id"
      */
-    private String profileId;
+    private String type;
 
     /**
      * Constructor
      *
      * @param steamId
      */
-    public SteamUser(String steamId)
+    public SteamUser(String id, String type)
     {
-        setSteamId(steamId);
+        this.id = id;
+        this.type = type;
     }
 
     /**
-     * Set Steam ID
+     * Get ID
      *
-     * @param steamId
+     * @return id
      */
-    public void setSteamId(String steamId)
+    public String getId()
     {
-        this.steamId = steamId;
+        return id;
     }
 
     /**
-     * Get Steam ID
+     * Get type
      *
-     * @return steamId
+     * @return type
      */
-    public String getSteamId()
+    public String getType()
     {
-        return steamId;
-    }
-
-    /**
-     * Set Profile ID
-     *
-     * @param profileId
-     */
-    public void setProfileId(String profileId)
-    {
-        this.profileId = profileId;
-    }
-
-    /**
-     * Get Profile ID
-     *
-     * @return profileId
-     */
-    public String getProfileId()
-    {
-        return profileId;
+        return type;
     }
     
     /**

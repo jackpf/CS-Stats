@@ -1,6 +1,8 @@
 package com.jackpf.csstats;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +13,12 @@ import com.jackpf.csstats.lib.Lib;
 
 public class LoginActivity extends Activity
 {
+	/**
+	 * Key used to access saved credentials in prefs
+	 */
+	public final static String KEY_TYPE	= "type",
+							   KEY_ID	= "id";
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,7 +34,15 @@ public class LoginActivity extends Activity
 		try {
 			SteamIdTransformer transformer = new SteamIdTransformer(input);
 			
-			System.err.println(transformer.getType() + "/" + transformer.getId());
+			SharedPreferences.Editor prefs = getSharedPreferences(getPackageName(), MODE_PRIVATE).edit();
+
+			prefs.putString(LoginActivity.KEY_TYPE, transformer.getType());
+			prefs.putString(LoginActivity.KEY_ID, transformer.getId());
+			
+			prefs.commit();
+			
+			Intent loginActivity = new Intent(this, MainActivity.class);
+        	startActivity(loginActivity);
 		} catch(TransformException e) {
 			Lib.warning(this, "Invalid input");
 		}

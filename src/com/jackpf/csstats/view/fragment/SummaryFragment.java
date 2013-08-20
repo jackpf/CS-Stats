@@ -59,10 +59,11 @@ public class SummaryFragment implements Fragment
 	        	((TextView) tr.findViewById(tv)).setText(Html.fromHtml(html));
         	}
         	
+        	//TODO: Put this in styles?
         	if (k % 2 == 1)
-        		tr.setBackgroundColor(Color.argb(150, 128, 128, 128));
-        	else
         		tr.setBackgroundColor(Color.argb(50, 128, 128, 128));
+        	else
+        		tr.setBackgroundColor(Color.argb(50, 129, 179, 215));
         	
         	table.addView(tr);
         }
@@ -80,7 +81,9 @@ public class SummaryFragment implements Fragment
 	 */
 	public static String parseValue(String value, String type)
 	{
-		if (value == null) {
+		if (type.equals("null") || value.equals("")) {
+			return "";
+		} else if (value == null) {
 			return null;
 		}
 		
@@ -111,6 +114,10 @@ public class SummaryFragment implements Fragment
 	 */
 	public static String getKey(String name, Activity context)
 	{
+		if (name.equals("")) {
+			return "";
+		}
+		
 		int keyRsrc = context.getResources().getIdentifier(name , "string", context.getPackageName());
     	
 		if (keyRsrc == 0) {

@@ -6,17 +6,17 @@ import java.util.regex.Pattern;
 public class SteamIdTransformer
 {
 	/**
-	 * Type of the id, eg: "profiles" or "id"
-	 * To be used in the url
-	 */
-	private String type;
-	
-	/**
 	 * Id
 	 * If identifier = profiles, this will be a profile id
 	 * If identifier = id this will be the custom url id
 	 */
 	private String id;
+	
+	/**
+	 * Type of the id, eg: "profiles" or "id"
+	 * To be used in the url
+	 */
+	private String type;
 	
 	/**
 	 * Regex patterns
@@ -36,16 +36,6 @@ public class SteamIdTransformer
 	}
 	
 	/**
-	 * Get type
-	 * 
-	 * @return type
-	 */
-	public String getType()
-	{
-		return type;
-	}
-	
-	/**
 	 * Get id
 	 * 
 	 * @return id
@@ -53,6 +43,16 @@ public class SteamIdTransformer
 	public String getId()
 	{
 		return id;
+	}
+	
+	/**
+	 * Get type
+	 * 
+	 * @return type
+	 */
+	public String getType()
+	{
+		return type;
 	}
 	
 	/**

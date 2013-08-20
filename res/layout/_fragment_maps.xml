@@ -3,11 +3,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
-    <RelativeLayout
+    <LinearLayout
 		android:id="@+id/fragment_maps_chart"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
-       
+		android:layout_height="wrap_content"
+		android:orientation="vertical" />
+
 	<TableLayout
 		android:id="@+id/fragment_maps_table"
 		android:layout_width="fill_parent"
